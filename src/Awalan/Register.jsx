@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 
-function Login() {
+function Register() {
     const [formData, setFormData] = useState({
             nama: "",
             email: "",
@@ -37,7 +37,7 @@ function Login() {
                 jurusan: "",
             });
 
-            navigate("/Dashboard");
+            navigate("/");
         } catch (error) {
             console.error("Error saat menambahkan data:", error);
             Swal.fire({
@@ -55,10 +55,9 @@ return (
   <div
     className="flex items-center justify-center h-screen bg-cover bg-center"
     style={{ backgroundImage: `url(${background})` }}
-
   >
     <div className="bg-white/20 shadow rounded-lg p-8 shadow-lg max-w-sm w-full">
-      <h1 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg">Login</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg">Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-white text-sm font-bold mb-2" htmlFor="nama">
@@ -110,15 +109,16 @@ return (
 
         <div className="flex justify-between items-center">
           <button
-            className="bg-sky-500/80 hover:bg-sky-600/90 text-white font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline mx-auto"
+            className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Simpan
           </button>
-        </div>
-        <div className="text-center mt-4 ml-50 text-nowrap">
-          <a href="/R" className="text-blue-600 text-sm">
-            Belum punya akun?
+          <a
+            href="/"
+            className="bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Kembali
           </a>
         </div>
       </form>
@@ -127,4 +127,4 @@ return (
 );
 }
 
-export default Login;
+export default Register;
