@@ -1,27 +1,18 @@
-import React, { useState } from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidnav = () => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div className="flex">
-      <div className={`fixed top-0 left-0 h-full w-60 bg-emerald-300 text-white ${open ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 ease-in-out md:translate-x-0`}>
-        <div className="text-3xl font-bold text-center pt-4 text-black">Binusa</div>
-        <nav className="space-y-3 pt-8">
-          <a
-            href="/Dashboard"
-            className="block py-2 px-3 rounded hover:bg-emerald-600 focus:shadow-outline text-black font-bold text-center"
-          >
-            Dashboard
-          </a>
-          <a
-            href="/"
-            className="block py-2 px-3 rounded hover:bg-emerald-600 focus:shadow-outline text-black font-bold text-center"
-          >
-            Dashboard
-          </a>
-        </nav>
-      </div>
+    <div className="fixed top-0 left-0 h-full w-56 shadow text-black bg-gradient-to-b from-emerald-200 to-emerald-600">
+      <div className="text-3xl font-bold text-center pt-6">Menu</div>
+      <nav className="mt-8 space-y-4 text-center">
+        <Link to="/dashboard" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Dashboard</Link>
+        <Link to="/tagihan" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Tagihan</Link>
+        <Link to="/Jenistagihan" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Jenis Tagihan</Link>
+        <div className="pt-110">
+        <Link to="/" className="block py-2 px-3 rounded hover:bg-red-600 font-medium">Keluar</Link>
+        </div>
+      </nav>
     </div>
   );
 };

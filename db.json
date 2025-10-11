@@ -1,0 +1,69 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "12345"
+    },
+    {
+      "id": "a10f",
+      "username": "Sakti",
+      "password": "asaasa22018!!"
+    }
+  ],
+  "data": [
+    {
+      "id": "5dad",
+      "nama": "Reza yanto",
+      "email": "yanto@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Uang Ujian",
+      "jumlah": 1000000,
+      "status": true
+    },
+    {
+      "id": "0a6e",
+      "nama": "Reza kevala",
+      "email": "yurayurawa2222@gmail.com",
+      "jurusan": "otomotif",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 500000,
+      "status": false
+    },
+    {
+      "id": "2c64",
+      "nama": "sakti",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 300000,
+      "status": true
+    },
+    {
+      "id": "4153",
+      "nama": "darren",
+      "email": "seft@gmail.com",
+      "jurusan": "Tkj",
+      "jenis": "Uang Ujian",
+      "jumlah": 100000,
+      "status": false
+    }
+  ],
+  "jenis": [
+    {
+      "id": "1",
+      "nama": "SPP Bulanan",
+      "harga": 250000
+    },
+    {
+      "id": "2",
+      "nama": "Uang Ujian",
+      "harga": 150000
+    },
+    {
+      "id": "3",
+      "nama": "Seragam Sekolah",
+      "harga": 300000
+    }
+  ]
+}

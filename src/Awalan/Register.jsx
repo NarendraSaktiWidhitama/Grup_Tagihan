@@ -1,130 +1,49 @@
-import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import background from "../assets/background.avif"
-import axios from 'axios';
-import Swal from 'sweetalert2';
-
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-    const [formData, setFormData] = useState({
-            nama: "",
-            email: "",
-            jurusan: "",
-        });
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ username: "", password: "", confirm: "" });
 
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await axios.post("", formData);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (form.password !== form.confirm) {
+      Swal.fire({ icon: "error", title: "Password tidak cocok" });
+      return;
+    }
+    try {
+      const check = await axios.get("http://localhost:5000/users", { params: { username: form.username } });
+      if (check.data.length > 0) {
+        Swal.fire({ icon: "error", title: "Username sudah dipakai" });
+        return;
+      }
+      await axios.post("http://localhost:5000/users", { username: form.username, password: form.password });
+      Swal.fire({ icon: "success", title: "Berhasil daftar", timer: 1200, showConfirmButton: false });
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      Swal.fire({ icon: "error", title: "Error", text: "Gagal mendaftar" });
+    }
+  };
 
-            console.log("Respon server:", response.data);
-            Swal.fire({
-                title: "Selamat yah!",
-                icon: "berhasil",
-                draggable: true
-            });
-
-            setFormData({
-                nama: "",
-                email: "",
-                jurusan: "",
-            });
-
-            navigate("/");
-        } catch (error) {
-            console.error("Error saat menambahkan data:", error);
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-                footer: '<a href="#">Why do I have this issue?</a>'
-            });
-        } finally {
-            setLoading(false);
-        }
-    };
-
-return (
-  <div
-    className="flex items-center justify-center h-screen bg-cover bg-center"
-    style={{ backgroundImage: `url(${background})` }}
-  >
-    <div className="bg-white/20 shadow rounded-lg p-8 shadow-lg max-w-sm w-full">
-      <h1 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg">Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2" htmlFor="nama">
-            Nama
-          </label>
-          <input
-            className="bg-white/10 border border-white/40 rounded w-full py-2 px-3 text-white placeholder-white/70 leading-tight focus:outline-none focus:ring-2 focus:ring-white/50"
-            id="nama"
-            type="text"
-            name="nama"
-            value={formData.nama}
-            onChange={handleChange}
-            placeholder="Masukan nama anda"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="bg-white/10 border border-white/40 rounded w-full py-2 px-3 text-white placeholder-white/70 leading-tight focus:outline-none focus:ring-2 focus:ring-white/50"
-            id="email"
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Masukan email anda"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2" htmlFor="jurusan">
-            Jurusan
-          </label>
-          <input
-            className="bg-white/10 border border-white/40 rounded w-full py-2 px-3 text-white placeholder-white/70 leading-tight focus:outline-none focus:ring-2 focus:ring-white/50"
-            id="jurusan"
-            type="text"
-            name="jurusan"
-            value={formData.jurusan}
-            onChange={handleChange}
-            placeholder="Pilih"
-            required
-          />
-        </div>
-
-        <div className="flex justify-between items-center">
-          <button
-            className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Simpan
-          </button>
-          <a
-            href="/"
-            className="bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Kembali
-          </a>
-        </div>
-      </form>
+  return (
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-emerald-200 to-emerald-600">
+      <div className="bg-white rounded-2xl shadow-xl p-10 w-96">
+        <h1 className="text-3xl font-bold text-center mb-6">Register</h1>
+        <form onSubmit={handleRegister} className="flex flex-col gap-4">
+          <input name="username" value={form.username} onChange={handleChange} placeholder="Username" className="border rounded-lg px-4 py-2" required />
+          <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password" className="border rounded-lg px-4 py-2" required />
+          <input name="confirm" type="password" value={form.confirm} onChange={handleChange} placeholder="Konfirmasi Password" className="border rounded-lg px-4 py-2" required />
+          <button type="submit" className="bg-emerald-400 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold">Register</button>
+          <p className="text-center text-sm">Sudah punya akun? <span className="text-emerald-500 cursor-pointer" onClick={() => navigate("/")}>Login</span></p>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Register;
