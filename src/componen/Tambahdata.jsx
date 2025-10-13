@@ -43,7 +43,7 @@ function Tambahdata() {
       <Sidnav />
       <div className="flex-1 p-8 ml-120 m-15">
         <div className="bg-emerald-100 p-6 rounded-lg shadow max-w-lg">
-          <h1 className="text-2xl font-bold mb-4 text-center">Tambah Tagihan</h1>
+          <h1 className="text-2xl font-bold mb-4">Tambah Tagihan</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input name="nama" value={form.nama} onChange={handleChange} placeholder="Nama" className="w-full border px-3 py-2 rounded" required />
             <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="w-full border px-3 py-2 rounded" required />

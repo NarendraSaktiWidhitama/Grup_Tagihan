@@ -36,8 +36,7 @@ function Dashboard() {
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
       <div className="flex-1 p-8 ml-56">
-        <h1 className="text-3xl font-bold">DASHBOARD</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 pt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-5 rounded-lg shadow">
             <div className="text-sm text-gray-500">Total Tagihan</div>
             <div className="text-2xl font-bold">{totalTagihan}</div>

@@ -9,8 +9,8 @@ const Sidnav = () => {
         <Link to="/dashboard" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Dashboard</Link>
         <Link to="/tagihan" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Tagihan</Link>
         <Link to="/Jenistagihan" className="block py-2 px-3 rounded hover:bg-emerald-600 font-medium">Jenis Tagihan</Link>
-        <div className="pt-110">
-        <Link to="/" className="block py-2 px-3 rounded hover:bg-red-600 font-medium">Keluar</Link>
+        <div className="pt-85">
+        <Link to="/" className="block py-2 px-3 rounded hover:bg-red-800 font-medium">Keluar</Link>
         </div>
       </nav>
     </div>
