@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidnav from "./Sidnav";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'; 
 
 function Tambahdata() {
   const navigate = useNavigate();
@@ -16,12 +17,14 @@ function Tambahdata() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/jenis").then(r => setJenis(r.data)).catch(console.error);
+    axios.get("http://localhost:5000/jenis")
+      .then(r => setJenis(r.data))
+      .catch(console.error);
   }, []);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm(prev => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -29,12 +32,27 @@ function Tambahdata() {
     try {
       await axios.post("http://localhost:5000/data", {
         ...form,
-        jumlah: Number(form.jumlah)
+        jumlah: Number(form.jumlah),
+        status: false
       });
+      
+      await Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: 'Data tagihan Anda sudah berhasil ditambahkan.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+
       navigate("/tagihan");
+
     } catch (err) {
       console.error(err);
-      alert("Gagal tambah data");
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: 'Gagal menambah data. Silakan coba lagi.'
+      });
     }
   };
 
@@ -53,10 +71,6 @@ function Tambahdata() {
               {jenis.map(j => <option key={j.id} value={j.nama}>{j.nama}</option>)}
             </select>
             <input name="jumlah" value={form.jumlah} onChange={handleChange} placeholder="Jumlah (angka)" className="w-full border px-3 py-2 rounded" required />
-            <label className="flex items-center gap-2">
-              <input type="checkbox" name="status" checked={form.status} onChange={handleChange} />
-              <span>Sudah Lunas?</span>
-            </label>
             <div className="flex gap-3">
               <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">Simpan</button>
               <button onClick={() => navigate(-1)} type="button" className="bg-gray-300 px-4 py-2 rounded">Batal</button>

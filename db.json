@@ -27,15 +27,6 @@
       "status": true
     },
     {
-      "id": "0a6e",
-      "nama": "Reza kevala",
-      "email": "yurayurawa2222@gmail.com",
-      "jurusan": "otomotif",
-      "jenis": "Seragam Sekolah",
-      "jumlah": 500000,
-      "status": false
-    },
-    {
       "id": "2c64",
       "nama": "sakti",
       "email": "yurayurawaafafafaf@gmail.com",
@@ -126,44 +117,8 @@
       "status": true
     },
     {
-      "id": "3a29",
-      "nama": "azzam",
-      "email": "azzam@gmail.com",
-      "jurusan": "otomotif",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
-      "id": "046c",
-      "nama": "araara",
-      "email": "yurayurawa2222@gmail.com",
-      "jurusan": "PPLG",
-      "jenis": "SPP Bulanan",
-      "jumlah": 300000,
-      "status": true
-    },
-    {
-      "id": "e3b5",
-      "nama": "sakti",
-      "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "otomotif",
-      "jenis": "SPP Bulanan",
-      "jumlah": 300000,
-      "status": true
-    },
-    {
-      "id": "b220",
-      "nama": "Reza yanto",
-      "email": "yurayurawa2222@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "SPP Bulanan",
-      "jumlah": 150000,
-      "status": true
-    },
-    {
-      "id": "0cce",
-      "nama": "Reza yanto",
+      "id": "4342",
+      "nama": "Reza kevala",
       "email": "yurayurawaafafafaf@gmail.com",
       "jurusan": "PPLG",
       "jenis": "SPP Bulanan",
