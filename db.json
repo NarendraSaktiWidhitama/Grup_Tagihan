@@ -42,15 +42,6 @@
       "jurusan": "Tkj",
       "jenis": "Uang Ujian",
       "jumlah": 100000,
-      "status": false
-    },
-    {
-      "id": "d012",
-      "nama": "touka",
-      "email": "yanto@gmail.com",
-      "jurusan": "Tkj",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
       "status": true
     },
     {
@@ -99,15 +90,6 @@
       "status": true
     },
     {
-      "id": "4808",
-      "nama": "adrean",
-      "email": "rean@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "Seragam Sekolah",
-      "jumlah": 1100000,
-      "status": false
-    },
-    {
       "id": "5ba5",
       "nama": "Bibir gajah",
       "email": "oranghidup@gmail.com",
@@ -117,10 +99,19 @@
       "status": true
     },
     {
-      "id": "4342",
+      "id": "7faa",
+      "nama": "darren",
+      "email": "seft@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "Uang Ujian",
+      "jumlah": 1200000,
+      "status": true
+    },
+    {
+      "id": "7f9a",
       "nama": "Reza kevala",
       "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "PPLG",
+      "jurusan": "DKV",
       "jenis": "SPP Bulanan",
       "jumlah": 150000,
       "status": false

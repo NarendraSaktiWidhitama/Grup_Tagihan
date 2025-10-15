@@ -12,8 +12,12 @@ function Tagihan() {
   const navigate = useNavigate();
 
   const fetchData = async (filterJenis = "") => {
+    if (!loading) setLoading(true); 
+
     try {
-      setLoading(true);
+      if (!showContent) {
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+      }
       
       const dataUrl = filterJenis 
         ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
@@ -29,11 +33,11 @@ function Tagihan() {
       console.error(err);
     } finally {
       setLoading(false);
-   
+    
       if (!showContent) {
         setTimeout(() => {
           setShowContent(true);
-        }, 500);
+        }, 50);
       }
     }
   };
@@ -44,7 +48,7 @@ function Tagihan() {
 
   const handleFilterChange = (e) => {
     const val = e.target.value;
-    fetchData(val);
+    fetchData(val); 
   };
 
   const toggleStatus = async (item) => {
@@ -64,57 +68,59 @@ function Tagihan() {
   
   const handleDelete = async (d) => {
     const result = await Swal.fire({
-        title: "Yakin ingin menghapus?",
-        text: "Data yang sudah dihapus tidak bisa dikembalikan!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74c3c",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, hapus!",
-        cancelButtonText: "Batal",
+      title: "Yakin ingin menghapus?",
+      text: "Data yang sudah dihapus tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
     });
     
     if (result.isConfirmed) {
-        try {
-            await axios.delete(`http://localhost:5000/data/${d.id}`);
-            setData((prev) => prev.filter((x) => x.id !== d.id));
-            Swal.fire({
-                icon: "success",
-                title: "Terhapus!",
-                text: "Data berhasil dihapus.",
-                showConfirmButton: false,
-                timer: 1200,
-            });
-        } catch (err) {
-            Swal.fire({
-                icon: "error",
-                title: "Gagal!",
-                text: "Terjadi kesalahan saat menghapus data.",
-            });
-        }
+      try {
+        await axios.delete(`http://localhost:5000/data/${d.id}`);
+        setData((prev) => prev.filter((x) => x.id !== d.id));
+        Swal.fire({
+          icon: "success",
+          title: "Terhapus!",
+          text: "Data berhasil dihapus.",
+          showConfirmButton: false,
+          timer: 1200,
+        });
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal!",
+          text: "Terjadi kesalahan saat menghapus data.",
+        });
+      }
     }
   };
 
   if (loading && !showContent) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <p className="text-xl font-medium text-gray-700">Memuat data tagihan...</p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+        <p className="mt-4 text-xl font-medium text-gray-700">Memuat data tagihan...</p>
+      </div>
     </div>
   );
 
-  const animationClass = showContent 
-    ? 'opacity-100 translate-y-0 duration-1000' 
-    : 'opacity-0 translate-y-4 duration-500';
+  const baseAnimation = showContent 
+    ? 'opacity-100 translate-y-0 transition-all duration-700 ease-out' 
+    : 'opacity-0 translate-y-4';
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
-      <div className={`flex-1 p-8 ml-56 transition-all ${animationClass}`}>
-
-        <div className={`bg-gradient-to-r from-emerald-200 to-emerald-500 p-4 rounded-lg mb-6 transition-all ease-out delay-100 ${animationClass}`}>
+      <div className={`flex-1 p-8 ml-56 ${baseAnimation}`}>
+        <div className={`bg-gradient-to-r from-emerald-200 to-emerald-500 p-4 rounded-lg mb-6 transition-all ease-out duration-700`}>
           <h1 className="text-3xl font-bold">Daftar Tagihan</h1>
         </div>
 
-        <div className={`flex justify-between items-center mb-4 transition-all ease-out delay-200 ${animationClass}`}>
+        <div className={`flex justify-between items-center mb-4 transition-all ease-out duration-700 delay-100 ${baseAnimation}`}>
           <div>
             <label className="font-medium mr-2">Filter jenis:</label>
             <select
@@ -138,7 +144,7 @@ function Tagihan() {
           </button>
         </div>
 
-        <div className={`bg-white p-4 rounded-lg shadow transition-all ease-out delay-300 ${animationClass}`}>
+        <div className={`bg-white p-4 rounded-lg shadow transition-all ease-out duration-700 delay-200 ${baseAnimation}`}>
           <table className="w-full text-center border-collapse">
             <thead className="bg-emerald-200">
               <tr>
@@ -154,11 +160,11 @@ function Tagihan() {
             <tbody>
               {data.map((d, i) => (
                 <tr key={d.id} className="hover:bg-emerald-50 transition-colors">
-                  <td className="p-2">{i + 1}</td>
-                  <td className="p-2">{d.nama}</td>
-                  <td className="p-2">{d.email}</td>
+                  <td className="p-2 text-right">{i + 1}</td>
+                  <td className="p-2 text-left">{d.nama}</td>
+                  <td className="p-2 text-left">{d.email}</td>
                   <td className="p-2">{d.jenis}</td>
-                  <td className="p-2">Rp {d.jumlah?.toLocaleString()}</td>
+                  <td className="p-2 mx-8">Rp {d.jumlah?.toLocaleString()}</td>
                   <td className="p-2">{d.status ? "Lunas" : "Belum Lunas"}</td>
                   <td className="p-2 flex justify-center gap-2">
                     
@@ -177,19 +183,21 @@ function Tagihan() {
                     </button>
 
                     <button
-                      onClick={() => toggleStatus(d)}
+                      onClick={d.status ? undefined : () => toggleStatus(d)}
+                      disabled={d.status}
                       className={`min-w-[130px] text-sm px-2 py-1 rounded transition shadow-md text-white ${
                         d.status
-                          ? "bg-green-500 hover:bg-green-600"
-                          : "bg-gray-400 hover:bg-gray-500"
+                          ? "bg-gray-400 cursor-not-allowed opacity-70"
+                          : "bg-green-500 hover:bg-green-700"
                       }`}
-                      >{d.status ? "Belum Lunas" : "Tandai Lunas"}
+                    >
+                      {d.status ? "Lunas" : "Tandai Lunas"}
                     </button>
                   </td>
                 </tr>
               ))}
               {data.length === 0 && (
-                <tr className="transition-opacity ease-out delay-500">
+                <tr>
                   <td colSpan="7" className="p-6 text-gray-500">
                     Tidak ada data
                   </td>
