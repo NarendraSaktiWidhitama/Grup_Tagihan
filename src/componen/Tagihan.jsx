@@ -169,18 +169,18 @@ function Tagihan() {
                   <td className="p-2 flex justify-center gap-2">
                     
                     <button
-                      onClick={() => navigate(`/edit/${d.id}`)}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded transition shadow-md"
+                    onClick={() => navigate(`/edit/${d.id}`)}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded transition shadow-md text-lg"
                     >
-                      Edit
-                    </button>
-
-                    <button
+                      ✏️
+                      </button>
+                      
+                      <button
                       onClick={() => handleDelete(d)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition shadow-md"
-                    >
-                      Hapus
-                    </button>
+                      className="bg-red-500 hover:bg-red-600 text-white p-2 rounded transition shadow-md text-lg"
+                      >
+                        🗑️
+                        </button>
 
                     <button
                       onClick={d.status ? undefined : () => toggleStatus(d)}

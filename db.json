@@ -90,30 +90,12 @@
       "status": true
     },
     {
-      "id": "5ba5",
-      "nama": "Bibir gajah",
-      "email": "oranghidup@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
-      "id": "7faa",
-      "nama": "darren",
-      "email": "seft@gmail.com",
+      "id": "4fae",
+      "nama": "Darren sefthiros jacobson",
+      "email": "Darren@gmail.com",
       "jurusan": "PPLG",
       "jenis": "Uang Ujian",
       "jumlah": 1200000,
-      "status": true
-    },
-    {
-      "id": "7f9a",
-      "nama": "Reza kevala",
-      "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "SPP Bulanan",
-      "jumlah": 150000,
       "status": false
     }
   ],
