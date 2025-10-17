@@ -103,7 +103,7 @@ function Tagihan() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex flex-col items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-        <p className="mt-4 text-xl font-medium text-gray-700">Memuat data tagihan...</p>
+        <p className="mt-4 text-xl font-medium text-gray-700">Memuat tagihan</p>
       </div>
     </div>
   );
@@ -170,14 +170,14 @@ function Tagihan() {
                     
                     <button
                     onClick={() => navigate(`/edit/${d.id}`)}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded transition shadow-md text-lg"
+                    className="p-2 rounded transition"
                     >
                       ✏️
                       </button>
                       
                       <button
                       onClick={() => handleDelete(d)}
-                      className="bg-red-500 hover:bg-red-600 text-white p-2 rounded transition shadow-md text-lg"
+                      className="p-2 rounded transition"
                       >
                         🗑️
                         </button>

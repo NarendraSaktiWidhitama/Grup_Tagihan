@@ -40,7 +40,7 @@ const Sidnav = () => {
         <img 
           src={gambar} 
           alt="gambar uang" 
-          className="w-8 h-8 mr-2" 
+          className="w-14 h-14 -ml-10" 
         />
         <div className="text-2xl font-black tracking-widest uppercase">
           MENU

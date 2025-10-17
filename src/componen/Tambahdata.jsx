@@ -76,7 +76,7 @@ function Tambahdata() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex flex-col items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-        <p className="mt-4 text-xl font-medium text-gray-700">Memuat formulir...</p>
+        <p className="mt-4 text-xl font-medium text-gray-700">Memuat formulir</p>
       </div>
     </div>
   );

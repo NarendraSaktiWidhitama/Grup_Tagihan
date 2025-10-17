@@ -40,7 +40,7 @@ function Dashboard() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex flex-col items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-        <p className="mt-4 text-xl font-medium text-gray-700">Memuat data dashboard...</p>
+        <p className="mt-4 text-xl font-medium text-gray-700">Memuat dashboard</p>
       </div>
     </div>
   );
@@ -54,7 +54,7 @@ function Dashboard() {
     { title: "Total Tagihan", value: totalTagihan, style: "text-gray-900", bgColor: "bg-blue-50" },
     { title: "Sudah Lunas", value: sudahBayar, style: "text-green-600", bgColor: "bg-green-50" },
     { title: "Belum Lunas", value: belumBayar, style: "text-red-600", bgColor: "bg-red-50" },
-    { title: "Total Nominal", value: `Rp ${totalNominal.toLocaleString()}`, style: "text-gray-900", bgColor: "bg-yellow-50" },
+    { title: "Total Nominal", value: `Rp ${totalNominal.toLocaleString()}`, style: "text-gray-900 text-nowrap", bgColor: "bg-yellow-50" },
   ];
 
   const mainContentAnimation = showContent 
@@ -95,7 +95,7 @@ function Dashboard() {
                 {data.slice(0, 10).map((d, i) => (
                   <tr key={d.id} className="hover:bg-emerald-50 transition-colors">
                     <td className="p-2">{i+1}</td>
-                    <td className="p-2 text-left font-medium">{d.nama}</td>
+                    <td className="p-2">{d.nama}</td>
                     <td className="p-2">{d.jenis}</td>
                     <td className="p-2 mx-8">Rp {d.jumlah?.toLocaleString()}</td>
                     <td className="p-2">

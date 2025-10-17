@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import myvideo from "../assets/Zz.mp4" 
 
 function Login() {
   const navigate = useNavigate();
@@ -31,9 +32,20 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-emerald-200 to-emerald-600">
-      <div className="bg-white rounded-2xl shadow-xl p-10 w-96">
-        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+    <div className="relative flex items-center justify-center h-screen overflow-hidden">
+        
+      <div className="absolute inset-0 z-0"> 
+        <video 
+          src={myvideo} 
+          autoPlay 
+          muted 
+          loop
+          className="w-full h-full object-cover" 
+        ></video>
+      </div>
+      
+      <div className="backdrop-blur-md rounded-2xl shadow-xl p-10 w-96 z-10">
+        <h1 className="text-3xl font-bold text-white text-center mb-6">Login</h1>
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <input
             name="username"
@@ -69,7 +81,7 @@ function Login() {
             Login
           </button>
 
-          <p className="text-center text-sm">
+          <p className="text-center text-white text-sm">
             Belum punya akun?{" "}
             <span
               className="text-emerald-400 cursor-pointer hover:underline"

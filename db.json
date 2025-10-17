@@ -18,84 +18,93 @@
   ],
   "data": [
     {
-      "id": "5dad",
-      "nama": "Reza yanto",
-      "email": "yanto@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "Uang Ujian",
-      "jumlah": 1000000,
-      "status": true
-    },
-    {
-      "id": "2c64",
-      "nama": "sakti",
-      "email": "yurayurawaafafafaf@gmail.com",
+      "id": "84db",
+      "nama": "Narendra sakti widhitama",
+      "email": "wahahahahah@gmail.com",
       "jurusan": "PPLG",
       "jenis": "SPP Bulanan",
-      "jumlah": 300000,
+      "jumlah": 250000,
       "status": true
     },
     {
-      "id": "4153",
-      "nama": "darren",
-      "email": "seft@gmail.com",
-      "jurusan": "Tkj",
-      "jenis": "Uang Ujian",
-      "jumlah": 100000,
+      "id": "f4a2",
+      "nama": "Adrean syahputra",
+      "email": "rean@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 900000,
       "status": true
     },
     {
-      "id": "97ab",
-      "nama": "prayuda",
-      "email": "yudagaming@gmail.com",
-      "jurusan": "AKL",
+      "id": "efae",
+      "nama": "Bibir gajah",
+      "email": "yanto@gmail.com",
+      "jurusan": "OTOMOTIF",
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
       "status": true
     },
     {
-      "id": "0d20",
-      "nama": "Alvin bayu",
-      "email": "alvin@gmail.com",
-      "jurusan": "Tkj",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
-      "id": "853e",
-      "nama": "Alvin bayu",
-      "email": "alvin@gmail.com",
-      "jurusan": "Tkj",
+      "id": "f8fa",
+      "nama": "Hafiz izza",
+      "email": "fizzz@gmail.com",
+      "jurusan": "OTOMOTIF",
       "jenis": "Uang Ujian",
       "jumlah": 500000,
       "status": true
     },
     {
-      "id": "0603",
-      "nama": "Reza kevala",
-      "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "Seragam Sekolah",
-      "jumlah": 1200000,
-      "status": true
-    },
-    {
-      "id": "e5d6",
-      "nama": "sakti",
-      "email": "sakti@gmail.com",
-      "jurusan": "Tkj",
-      "jenis": "Seragam Sekolah",
-      "jumlah": 1200000,
-      "status": true
-    },
-    {
-      "id": "4fae",
-      "nama": "Darren sefthiros jacobson",
-      "email": "Darren@gmail.com",
-      "jurusan": "PPLG",
+      "id": "5eeb",
+      "nama": "Tobii origami",
+      "email": "origami@gmai.com",
+      "jurusan": "KULINERAN",
       "jenis": "Uang Ujian",
-      "jumlah": 1200000,
+      "jumlah": 500000,
+      "status": true
+    },
+    {
+      "id": "4e5b",
+      "nama": "Arul gendut top tegar",
+      "email": "arul@gmail.com",
+      "jurusan": "ESPORT",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "status": true
+    },
+    {
+      "id": "ec3f",
+      "nama": "Darren sefthiros jacobson",
+      "email": "seft@gmail.com",
+      "jurusan": "TKJ",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 500000,
+      "status": false
+    },
+    {
+      "id": "cf6f",
+      "nama": "User jungler asli jawa",
+      "email": "topjung@gmail.com",
+      "jurusan": "ESPORT",
+      "jenis": "SPP Bulanan",
+      "jumlah": 150000,
+      "status": false
+    },
+    {
+      "id": "59b5",
+      "nama": "Muhammad raffy wicaksana",
+      "email": "sinyo@gmail.com",
+      "jurusan": "TKJ",
+      "jenis": "Uang Ujian",
+      "jumlah": 500000,
+      "status": true
+    },
+    {
+      "id": "274d",
+      "nama": "Andi widiansyah",
+      "email": "andi@gmail.com",
+      "jurusan": "ELEKTRONIK",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
       "status": false
     }
   ],
