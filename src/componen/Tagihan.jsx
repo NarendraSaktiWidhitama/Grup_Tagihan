@@ -170,14 +170,14 @@ function Tagihan() {
                     
                     <button
                     onClick={() => navigate(`/edit/${d.id}`)}
-                    className="p-2 rounded transition"
+                    className="p-2 rounded transition hover:scale-[1.30]"
                     >
                       ✏️
                       </button>
                       
                       <button
                       onClick={() => handleDelete(d)}
-                      className="p-2 rounded transition"
+                      className="p-2 rounded transition hover:scale-[1.30]"
                       >
                         🗑️
                         </button>
@@ -188,7 +188,7 @@ function Tagihan() {
                       className={`min-w-[130px] text-sm px-2 py-1 rounded transition shadow-md text-white ${
                         d.status
                           ? "bg-gray-400 cursor-not-allowed opacity-70"
-                          : "bg-green-500 hover:bg-green-700"
+                          : "bg-green-500 hover:bg-green-700 transition hover:scale-[1.03]"
                       }`}
                     >
                       {d.status ? "Lunas" : "Tandai Lunas"}

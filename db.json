@@ -27,33 +27,6 @@
       "status": true
     },
     {
-      "id": "f4a2",
-      "nama": "Adrean syahputra",
-      "email": "rean@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "Seragam Sekolah",
-      "jumlah": 900000,
-      "status": true
-    },
-    {
-      "id": "efae",
-      "nama": "Bibir gajah",
-      "email": "yanto@gmail.com",
-      "jurusan": "OTOMOTIF",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
-      "id": "f8fa",
-      "nama": "Hafiz izza",
-      "email": "fizzz@gmail.com",
-      "jurusan": "OTOMOTIF",
-      "jenis": "Uang Ujian",
-      "jumlah": 500000,
-      "status": true
-    },
-    {
       "id": "5eeb",
       "nama": "Tobii origami",
       "email": "origami@gmai.com",
@@ -77,8 +50,8 @@
       "email": "seft@gmail.com",
       "jurusan": "TKJ",
       "jenis": "Seragam Sekolah",
-      "jumlah": 500000,
-      "status": false
+      "jumlah": 900000,
+      "status": true
     },
     {
       "id": "cf6f",
@@ -105,7 +78,34 @@
       "jurusan": "ELEKTRONIK",
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
-      "status": false
+      "status": true
+    },
+    {
+      "id": "cf5b",
+      "nama": "Reza yanto",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "status": true
+    },
+    {
+      "id": "a4ab",
+      "nama": "Reza yanto",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "status": true
+    },
+    {
+      "id": "c24e",
+      "nama": "Takuya yagami",
+      "email": "kuyakuya@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "Uang Ujian",
+      "jumlah": 900000,
+      "status": true
     }
   ],
   "jenis": [

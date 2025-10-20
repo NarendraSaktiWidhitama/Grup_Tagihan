@@ -47,7 +47,7 @@ function Register() {
       </div>
 
       <div className="backdrop-blur-lg rounded-2xl shadow-xl p-10 w-96 z-10">
-        <h1 className="text-3xl font-bold text-center mb-6">Register</h1>
+        <h1 className="text-3xl font-bold text-white text-center mb-6">Register</h1>
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           <input
             name="username"
@@ -96,7 +96,7 @@ function Register() {
 
           <button
             type="submit"
-            className="bg-emerald-400 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold"
+            className="bg-blue-400 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold"
           >
             Register
           </button>
@@ -104,7 +104,7 @@ function Register() {
           <p className="text-center text-white text-sm">
             Sudah punya akun?{" "}
             <span
-              className="text-emerald-500 cursor-pointer hover:underline"
+              className="text-blue-500 cursor-pointer hover:underline"
               onClick={() => navigate("/")}
             >
               Login

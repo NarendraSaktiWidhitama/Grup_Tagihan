@@ -76,7 +76,7 @@ function Login() {
 
           <button
             type="submit"
-            className="bg-emerald-400 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold"
+            className="bg-blue-400 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold"
           >
             Login
           </button>
@@ -84,7 +84,7 @@ function Login() {
           <p className="text-center text-white text-sm">
             Belum punya akun?{" "}
             <span
-              className="text-emerald-400 cursor-pointer hover:underline"
+              className="text-blue-400 cursor-pointer hover:underline"
               onClick={() => navigate("/register")}
             >
               Register
