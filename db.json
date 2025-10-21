@@ -14,6 +14,11 @@
       "id": "beaa",
       "username": "rintaro",
       "password": "rintaro69!"
+    },
+    {
+      "id": "3277",
+      "username": "Sakti6",
+      "password": "sa123"
     }
   ],
   "data": [
@@ -27,24 +32,6 @@
       "status": true
     },
     {
-      "id": "5eeb",
-      "nama": "Tobii origami",
-      "email": "origami@gmai.com",
-      "jurusan": "KULINERAN",
-      "jenis": "Uang Ujian",
-      "jumlah": 500000,
-      "status": true
-    },
-    {
-      "id": "4e5b",
-      "nama": "Arul gendut top tegar",
-      "email": "arul@gmail.com",
-      "jurusan": "ESPORT",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
       "id": "ec3f",
       "nama": "Darren sefthiros jacobson",
       "email": "seft@gmail.com",
@@ -52,15 +39,6 @@
       "jenis": "Seragam Sekolah",
       "jumlah": 900000,
       "status": true
-    },
-    {
-      "id": "cf6f",
-      "nama": "User jungler asli jawa",
-      "email": "topjung@gmail.com",
-      "jurusan": "ESPORT",
-      "jenis": "SPP Bulanan",
-      "jumlah": 150000,
-      "status": false
     },
     {
       "id": "59b5",
@@ -81,24 +59,6 @@
       "status": true
     },
     {
-      "id": "cf5b",
-      "nama": "Reza yanto",
-      "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "PPLG",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
-      "id": "a4ab",
-      "nama": "Reza yanto",
-      "email": "yurayurawaafafafaf@gmail.com",
-      "jurusan": "PPLG",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "status": true
-    },
-    {
       "id": "c24e",
       "nama": "Takuya yagami",
       "email": "kuyakuya@gmail.com",
@@ -106,6 +66,42 @@
       "jenis": "Uang Ujian",
       "jumlah": 900000,
       "status": true
+    },
+    {
+      "id": "d507",
+      "nama": "Arif riansyah",
+      "email": "arif@gmail.com",
+      "jurusan": "OTOMOTIF",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 900000,
+      "status": true
+    },
+    {
+      "id": "5ccf",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "OTOMOTIF",
+      "jenis": "SPP Bulanan",
+      "jumlah": 300000,
+      "status": true
+    },
+    {
+      "id": "5756",
+      "nama": "Reza kevala",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "SPP Bulanan",
+      "jumlah": 1200000,
+      "status": true
+    },
+    {
+      "id": "dcf9",
+      "nama": "Reza kevala",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 1000000,
+      "status": false
     }
   ],
   "jenis": [
