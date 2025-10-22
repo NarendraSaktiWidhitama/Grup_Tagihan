@@ -79,7 +79,7 @@ const handleToggleStatus = async (item) => {
         Swal.fire({
           title: "Berhasil!",
           text: newStatus
-            ? "Selamat 🎉 Tagihan telah dilunasi!"
+            ? "Selamat Tagihan telah dilunasi!"
             : "Tagihan dikembalikan menjadi belum lunas.",
           icon: "success",
           showConfirmButton: false,
@@ -243,11 +243,11 @@ const handleToggleStatus = async (item) => {
                             onClick={() => handleToggleStatus(d)}
                             className={`min-w-[130px] text-sm px-2 py-1 rounded transition shadow-md text-white ${
                               d.status
-                              ? "bg-gray-400 hover:bg-gray-500"
-                              : "bg-green-500 hover:bg-green-600"
+                              ? "bg-green-500 hover:bg-green-600 transition hover:scale-[1.06]"
+                              : "bg-green-500 hover:bg-green-600 transition hover:scale-[1.06]"
                             }`}
                             >
-                              {d.status ? "Tandai Belum Lunas" : "Tandai Lunas"}
+                              {d.status ? "Ubah data" : "Ubah data"}
                               </button>
                               </td>
 

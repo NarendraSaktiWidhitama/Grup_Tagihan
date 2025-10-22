@@ -46,7 +46,7 @@ function Register() {
         ></video>
       </div>
 
-      <div className="backdrop-blur-lg rounded-2xl shadow-xl p-10 w-96 z-10">
+      <div className="backdrop-blur rounded-2xl shadow-xl p-10 w-96 z-10">
         <h1 className="text-3xl font-bold text-white text-center mb-6">Register</h1>
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           <input
@@ -72,7 +72,7 @@ function Register() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-3 text-gray-600 cursor-pointer"
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
 
@@ -90,7 +90,7 @@ function Register() {
               onClick={() => setShowConfirm(!showConfirm)}
               className="absolute right-3 top-3 text-gray-600 cursor-pointer"
             >
-              {showConfirm ? <FaEyeSlash /> : <FaEye />}
+              {showConfirm ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
 

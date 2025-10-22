@@ -92,7 +92,7 @@
       "jurusan": "DKV",
       "jenis": "SPP Bulanan",
       "jumlah": 1200000,
-      "status": true
+      "status": false
     },
     {
       "id": "dcf9",
@@ -102,23 +102,46 @@
       "jenis": "SPP Bulanan",
       "jumlah": 1000000,
       "status": false
+    },
+    {
+      "id": "817b",
+      "nama": "araara",
+      "email": "vantot@gmail.com",
+      "jurusan": "AKL",
+      "jenis": "Uang Ujian",
+      "jumlah": 1200000,
+      "status": true
+    },
+    {
+      "id": "7b87",
+      "nama": "Reza yanto",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Uang gedung",
+      "jumlah": 1500000,
+      "status": true
     }
   ],
   "jenis": [
     {
-      "id": "1",
       "nama": "SPP Bulanan",
-      "harga": 250000
+      "keterangan": "Bayar uang sekolah setiap bulan",
+      "id": "1"
     },
     {
-      "id": "2",
       "nama": "Uang Ujian",
-      "harga": 150000
+      "keterangan": "Bayar uang buat mengikuti ujian apapun",
+      "id": "2"
     },
     {
-      "id": "3",
       "nama": "Seragam Sekolah",
-      "harga": 300000
+      "keterangan": "Bayar buat pakaian seragam sekolah",
+      "id": "3"
+    },
+    {
+      "nama": "Uang gedung",
+      "keterangan": "Bayar uang gedung setiap awal semester",
+      "id": "ee00"
     }
   ]
 }

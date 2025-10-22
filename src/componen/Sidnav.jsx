@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import gambar from "../assets/uang.png"
+import 'remixicon/fonts/remixicon.css'
 
 const Sidnav = () => {
   const navigate = useNavigate();
@@ -52,21 +53,21 @@ const Sidnav = () => {
           to="/dashboard" 
           className={`${baseLinkClasses} ${isActive('/dashboard') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          Dashboard
+          <i class="ri-dashboard-horizontal-fill -ml-2"></i> Dashboard
         </Link>
 
         <Link 
           to="/tagihan" 
           className={`${baseLinkClasses} ${isActive('/tagihan') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          Tagihan
+          <i class="ri-apps-2-fill -ml-2"></i> Tagihan
         </Link>
 
         <Link 
           to="/Jenistagihan" 
           className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          Jenis Tagihan
+          <i class="ri-apps-2-add-fill -ml-2"></i> Jenis Tagihan
         </Link>
       </nav>
 
@@ -75,7 +76,7 @@ const Sidnav = () => {
           onClick={handleLogout} 
           className="block w-full py-3 px-3 rounded-lg bg-red-600 shadow-xl hover:bg-red-700 font-bold text-center transition-all duration-150 transform hover:scale-[1.03] active:scale-95 active:shadow-inner tracking-wider"
         >
-          Keluar
+          <i class="ri-logout-box-line -ml-2"></i> Keluar
         </button>
       </div>
     </div>

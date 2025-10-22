@@ -57,7 +57,7 @@ function Login() {
         ></video>
       </div>
 
-      <div className="backdrop-blur-md rounded-2xl shadow-xl p-10 w-96 z-10 bg-black/40">
+      <div className="backdrop-blur rounded-2xl shadow-xl p-10 w-96 z-10">
         <h1 className="text-3xl font-bold text-white text-center mb-6">
           Login
         </h1>
