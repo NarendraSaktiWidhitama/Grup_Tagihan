@@ -120,6 +120,15 @@
       "jenis": "Uang gedung",
       "jumlah": 1500000,
       "status": true
+    },
+    {
+      "id": "9459",
+      "nama": "Bibir gajah",
+      "email": "yurayurawa2222@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Uang gedung",
+      "jumlah": 1500000,
+      "status": true
     }
   ],
   "jenis": [

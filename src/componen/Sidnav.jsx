@@ -53,21 +53,21 @@ const Sidnav = () => {
           to="/dashboard" 
           className={`${baseLinkClasses} ${isActive('/dashboard') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          <i class="ri-dashboard-horizontal-fill -ml-2"></i> Dashboard
+          <i class="ri-dashboard-horizontal-fill -ml-23"></i> Dashboard
         </Link>
 
         <Link 
           to="/tagihan" 
           className={`${baseLinkClasses} ${isActive('/tagihan') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          <i class="ri-apps-2-fill -ml-2"></i> Tagihan
+          <i class="ri-apps-2-fill -ml-28"></i> Tagihan
         </Link>
 
         <Link 
           to="/Jenistagihan" 
           className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
         >
-          <i class="ri-apps-2-add-fill -ml-2"></i> Jenis Tagihan
+          <i class="ri-apps-2-add-fill -ml-18"></i> Jenis Tagihan
         </Link>
       </nav>
 
