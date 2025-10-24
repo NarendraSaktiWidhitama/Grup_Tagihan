@@ -212,10 +212,10 @@ const handleToggleStatus = async (item) => {
                   }`}
                 >
                   <td className="p-2 text-right">{i + 1}</td>
-                  <td className="p-2 text-left">{d.nama}</td>
-                  <td className="p-2 text-left">{d.email}</td>
-                  <td className="p-2">{d.jenis}</td>
-                  <td className="p-2 text-right">
+                  <td className="p-2 text-left text-nowrap">{d.nama}</td>
+                  <td className="p-2 text-left text-nowrap">{d.email}</td>
+                  <td className="p-2 text-nowrap">{d.jenis}</td>
+                  <td className="p-2 text-right text-nowrap">
                     Rp {d.jumlah?.toLocaleString()}
                   </td>
                   <td

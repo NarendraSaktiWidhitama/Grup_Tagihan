@@ -85,7 +85,7 @@ function Editdata() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex flex-col items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-        <p className="mt-4 text-xl font-medium text-gray-700">Memuat data tagihan...</p>
+        <p className="mt-4 text-xl font-medium text-gray-700">Memuat data tagihan</p>
       </div>
     </div>
   );
@@ -95,10 +95,10 @@ function Editdata() {
     : 'opacity-0 translate-y-4';
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-emerald-400">
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 ${baseAnimation}`}>
-        <div className={`bg-emerald-100 p-6 ml-65 m-15 rounded-lg shadow-xl max-w-lg transition-all ease-out duration-700 delay-100 ${baseAnimation}`}>
+        <div className={`bg-white p-6 ml-65 m-15 rounded-lg shadow-xl max-w-lg transition-all ease-out duration-700 delay-100 ${baseAnimation}`}>
           
           <h2 className="text-2xl font-semibold mb-6 text-gray-700">Formulir Edit Tagihan</h2>
 

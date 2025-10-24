@@ -135,22 +135,26 @@
     {
       "nama": "SPP Bulanan",
       "keterangan": "Bayar uang sekolah setiap bulan",
-      "id": "1"
+      "id": "1",
+      "aktif": true
     },
     {
       "nama": "Uang Ujian",
       "keterangan": "Bayar uang buat mengikuti ujian apapun",
-      "id": "2"
+      "id": "2",
+      "aktif": true
     },
     {
       "nama": "Seragam Sekolah",
       "keterangan": "Bayar buat pakaian seragam sekolah",
-      "id": "3"
+      "id": "3",
+      "aktif": true
     },
     {
       "nama": "Uang gedung",
       "keterangan": "Bayar uang gedung setiap awal semester",
-      "id": "ee00"
+      "id": "ee00",
+      "aktif": true
     }
   ]
 }

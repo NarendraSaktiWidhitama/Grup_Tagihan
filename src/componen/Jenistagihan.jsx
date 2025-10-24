@@ -7,12 +7,15 @@ function Jenistagihan() {
   const [jenis, setJenis] = useState([]);
   const [loading, setLoading] = useState(true);
   const [contentVisible, setContentVisible] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [form, setForm] = useState({ nama: "", keterangan: "" });
 
   useEffect(() => {
     const load = async () => {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 500));
         const res = await axios.get("http://localhost:5000/jenis");
         setJenis(res.data);
         setLoading(false);
@@ -25,73 +28,52 @@ function Jenistagihan() {
     load();
   }, []);
 
-  const handleAdd = async () => {
-    const { value: formValues } = await Swal.fire({
-      title: "Tambah Jenis Tagihan",
-      html: `
-        <input id="nama" class="swal2-input" placeholder="Nama Jenis">
-        <input id="ket" class="swal2-input" placeholder="Keterangan">
-      `,
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: "Tambah",
-      preConfirm: () => {
-        const nama = document.getElementById("nama").value;
-        const ket = document.getElementById("ket").value;
-        if (!nama) {
-          Swal.showValidationMessage("Nama jenis wajib diisi!");
-          return false;
-        }
-        return { nama, keterangan: ket };
-      },
-    });
-
-    if (!formValues) return;
+  const handleSave = async () => {
+    if (!form.nama.trim()) {
+      Swal.fire("Oops", "Nama jenis wajib diisi!", "warning");
+      return;
+    }
 
     try {
-      const res = await axios.post("http://localhost:5000/jenis", formValues);
-      Swal.fire("Berhasil!", "Jenis tagihan berhasil ditambahkan", "success");
-      setJenis([...jenis, res.data]);
+      if (editMode) {
+        await axios.put(`http://localhost:5000/jenis/${selectedId}`, form);
+        Swal.fire("Berhasil!", "Jenis tagihan berhasil diperbarui", "success");
+        setJenis(
+          jenis.map((j) =>
+            j.id === selectedId ? { ...j, ...form } : j
+          )
+        );
+      } else {
+        const res = await axios.post("http://localhost:5000/jenis", {
+          ...form,
+          aktif: true,
+        });
+        Swal.fire("Berhasil!", "Jenis tagihan berhasil ditambahkan", "success");
+        setJenis([...jenis, res.data]);
+      }
+      setModal(false);
+      setForm({ nama: "", keterangan: "" });
+      setEditMode(false);
     } catch (err) {
-      Swal.fire("Gagal", "Tidak bisa menambah jenis tagihan", "error");
+      Swal.fire("Gagal", "Terjadi kesalahan saat menyimpan data", "error");
       console.error(err);
     }
   };
 
-  const handleEdit = async (item) => {
-    const { value: formValues } = await Swal.fire({
-      title: "Edit Jenis Tagihan",
-      html: `
-        <input id="nama" class="swal2-input" value="${item.nama}" placeholder="Nama Jenis">
-        <input id="ket" class="swal2-input" value="${item.keterangan || ""}" placeholder="Keterangan">
-      `,
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: "Simpan",
-      preConfirm: () => {
-        const nama = document.getElementById("nama").value;
-        const ket = document.getElementById("ket").value;
-        if (!nama) {
-          Swal.showValidationMessage("Nama jenis tidak boleh kosong!");
-          return false;
-        }
-        return { nama, keterangan: ket };
-      },
-    });
+  const handleEdit = (item) => {
+    setForm({ nama: item.nama, keterangan: item.keterangan });
+    setSelectedId(item.id);
+    setEditMode(true);
+    setModal(true);
+  };
 
-    if (!formValues) return;
-
+  const handleToggleAktif = async (item) => {
     try {
-      await axios.put(`http://localhost:5000/jenis/${item.id}`, formValues);
-      Swal.fire("Berhasil!", "Jenis tagihan berhasil diperbarui", "success");
-      setJenis(
-        jenis.map((j) =>
-          j.id === item.id ? { ...j, ...formValues } : j
-        )
-      );
+      const updated = { ...item, aktif: !item.aktif };
+      await axios.put(`http://localhost:5000/jenis/${item.id}`, updated);
+      setJenis(jenis.map((j) => (j.id === item.id ? updated : j)));
     } catch (err) {
-      Swal.fire("Gagal", "Tidak bisa mengedit jenis tagihan", "error");
-      console.error(err);
+      Swal.fire("Gagal", "Tidak bisa mengubah status aktif", "error");
     }
   };
 
@@ -140,7 +122,11 @@ function Jenistagihan() {
         <div className="bg-gradient-to-r from-emerald-200 to-emerald-400 p-4 rounded-lg mb-6 shadow-md flex justify-between items-center">
           <h1 className="text-3xl font-bold">Jenis Tagihan</h1>
           <button
-            onClick={handleAdd}
+            onClick={() => {
+              setEditMode(false);
+              setForm({ nama: "", keterangan: "" });
+              setModal(true);
+            }}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition transform hover:scale-105"
           >
             + Tambah Jenis
@@ -157,30 +143,41 @@ function Jenistagihan() {
                 <th className="p-3">No</th>
                 <th className="p-3">Nama Jenis</th>
                 <th className="p-3">Keterangan</th>
+                <th className="p-3">Aktif</th>
                 <th className="p-3">Aksi</th>
               </tr>
             </thead>
             <tbody>
               {jenis.map((j, i) => (
-                <tr
-                  key={j.id}
-                  className="hover:bg-green-50 transition-colors border-gray-200"
-                >
+                <tr key={j.id} className="hover:bg-green-50 border-gray-200">
                   <td className="p-2">{i + 1}</td>
                   <td className="p-2 font-medium">{j.nama}</td>
-                  <td className="p-2 font-medium">
-                    {j.keterangan || "-"}
+                  <td className="p-2">{j.keterangan || "-"}</td>
+                  <td className="p-2">
+                    <label className="inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={j.aktif}
+                        onChange={() => handleToggleAktif(j)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-300 rounded-full peer relative 
+                        peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px]
+                        after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5
+                        after:transition-all peer-checked:after:translate-x-full">
+                      </div>
+                    </label>
                   </td>
                   <td className="p-2 space-x-2">
                     <button
                       onClick={() => handleEdit(j)}
-                      className="px-3 py-1 rounded transition hover:scale-[1.30]"
+                      className="px-3 py-1 rounded hover:scale-110"
                     >
                       ✏️
                     </button>
                     <button
                       onClick={() => handleDelete(j)}
-                      className="px-3 py-1 rounded transition hover:scale-[1.30]"
+                      className="px-3 py-1 rounded hover:scale-110"
                     >
                       🗑️
                     </button>
@@ -189,7 +186,7 @@ function Jenistagihan() {
               ))}
               {jenis.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="p-4 text-gray-500 border">
+                  <td colSpan="5" className="p-4 text-gray-500 border">
                     Tidak ada data jenis tagihan
                   </td>
                 </tr>
@@ -197,6 +194,48 @@ function Jenistagihan() {
             </tbody>
           </table>
         </div>
+
+        {modal && (
+          <div className="fixed inset-0 bg-emerald-400 bg-opacity-40 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl shadow-lg w-[400px] animate-fadeIn">
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                {editMode ? "Edit Jenis Tagihan" : "Tambah Jenis Tagihan"}
+              </h2>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Nama Jenis"
+                  value={form.nama}
+                  onChange={(e) => setForm({ ...form, nama: e.target.value })}
+                  className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-emerald-400 outline-none"
+                />
+                <input
+                  type="text"
+                  placeholder="Keterangan (opsional)"
+                  value={form.keterangan}
+                  onChange={(e) =>
+                    setForm({ ...form, keterangan: e.target.value })
+                  }
+                  className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-emerald-400 outline-none"
+                />
+              </div>
+              <div className="flex justify-end mt-6 space-x-3">
+                <button
+                  onClick={() => setModal(false)}
+                  className="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={handleSave}
+                  className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white"
+                >
+                  Simpan
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
