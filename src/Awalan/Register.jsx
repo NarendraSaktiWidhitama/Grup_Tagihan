@@ -46,8 +46,8 @@ function Register() {
         ></video>
       </div>
 
-      <div className="backdrop-blur rounded-2xl shadow-xl p-10 w-96 z-10">
-        <h1 className="text-3xl font-bold text-white text-center mb-6">Register</h1>
+      <div className="bg-white rounded-2xl shadow-xl p-10 w-96 z-10">
+        <h1 className="text-3xl font-bold text-center mb-6">Register</h1>
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           <input
             name="username"
@@ -101,7 +101,7 @@ function Register() {
             Register
           </button>
 
-          <p className="text-center text-white text-sm">
+          <p className="text-center text-sm">
             Sudah punya akun?{" "}
             <span
               className="text-blue-500 cursor-pointer hover:underline"

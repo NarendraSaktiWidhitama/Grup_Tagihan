@@ -211,7 +211,7 @@ function Jenistagihan() {
                 />
                 <input
                   type="text"
-                  placeholder="Keterangan (opsional)"
+                  placeholder="Keterangan"
                   value={form.keterangan}
                   onChange={(e) =>
                     setForm({ ...form, keterangan: e.target.value })

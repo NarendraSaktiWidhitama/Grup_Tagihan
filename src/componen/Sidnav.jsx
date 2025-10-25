@@ -9,7 +9,7 @@ const Sidnav = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
-
+  
   const handleLogout = async () => {
     const result = await Swal.fire({
       title: "Yakin ingin Keluar?",
@@ -20,67 +20,66 @@ const Sidnav = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Ya, Keluar!",
       cancelButtonText: "Batal",
-    });
-
-    if (result.isConfirmed) {
+     });
+     
+     if (result.isConfirmed) {
       navigate("/");
-    }
-  };
+     }
+    };
 
-  const baseLinkClasses = "block w-full py-3 rounded-lg font-semibold text-center transition-all duration-200 transform hover:scale-[1.03]";
+    const baseLinkClasses = "block w-full py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.03] text-left px-5";
   
-  const inactiveLinkClasses = "hover:bg-emerald-700/70 shadow-none";
+    const inactiveLinkClasses = "hover:bg-emerald-700/70 shadow-none";
 
-  const activeLinkClasses = "bg-emerald-300 text-emerald-900 shadow-lg border-l-4 border-white transform scale-[1.01]";
+    const activeLinkClasses = "bg-emerald-300 text-emerald-900 shadow-lg border-l-4 border-white transform scale-[1.01]";
 
 
-  return (
+    return (
     <div className="fixed top-0 left-0 h-full w-56 shadow-2xl text-white bg-gradient-to-br from-emerald-400 to-emerald-700 flex flex-col transition-all duration-300">
-      
       <div className="flex items-center justify-center p-4 pt-6 pb-6 border-emerald-500/30">
-        <img 
-          src={gambar} 
-          alt="gambar uang" 
-          className="w-14 h-14 -ml-10" 
-        />
-        <div className="text-2xl font-black tracking-widest uppercase">
-          MENU
-        </div>
-      </div>
-
-      <nav className="space-y-3 px-3 flex-1">
-        <Link 
+      <img 
+      src={gambar} 
+      alt="gambar uang" 
+      className="w-14 h-14 -ml-10" 
+      />
+      <div className="text-2xl font-black tracking-widest uppercase">
+         MENU
+         </div>
+         </div>
+         
+         <nav className="space-y-3 px-3 flex-1">
+          <Link 
           to="/dashboard" 
           className={`${baseLinkClasses} ${isActive('/dashboard') ? activeLinkClasses : inactiveLinkClasses}`}
-        >
-          <i class="ri-dashboard-horizontal-fill -ml-23"></i> Dashboard
-        </Link>
-
-        <Link 
-          to="/tagihan" 
-          className={`${baseLinkClasses} ${isActive('/tagihan') ? activeLinkClasses : inactiveLinkClasses}`}
-        >
-          <i class="ri-apps-2-fill -ml-28"></i> Tagihan
-        </Link>
-
-        <Link 
-          to="/Jenistagihan" 
-          className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
-        >
-          <i class="ri-apps-2-add-fill -ml-18"></i> Jenis Tagihan
-        </Link>
-      </nav>
-
-      <div className="p-4 mt-auto">
-        <button 
-          onClick={handleLogout} 
-          className="block w-full py-3 px-3 rounded-lg bg-red-600 shadow-xl hover:bg-red-700 font-bold text-center transition-all duration-150 transform hover:scale-[1.03] active:scale-95 active:shadow-inner tracking-wider"
-        >
-          <i class="ri-logout-box-line -ml-2"></i> Keluar
-        </button>
-      </div>
-    </div>
-  );
-};
+          >
+            <i class="ri-dashboard-horizontal-fill mr-2"></i> Dashboard
+            </Link>
+            
+            <Link 
+            to="/tagihan" 
+            className={`${baseLinkClasses} ${isActive('/tagihan') ? activeLinkClasses : inactiveLinkClasses}`}
+            >
+              <i class="ri-apps-2-fill mr-2"></i> Tagihan
+              </Link>
+              
+              <Link
+              to="/Jenistagihan" 
+              className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
+              >
+                <i class="ri-apps-2-add-fill mr-2"></i> Jenis Tagihan
+                </Link>
+                </nav>
+                
+                <div className="p-4 mt-auto">
+                  <button 
+                  onClick={handleLogout} 
+                  className="block w-full py-3 px-3 rounded-lg bg-red-600 shadow-xl hover:bg-red-700 font-bold text-center transition-all duration-150 transform hover:scale-[1.03] active:scale-95 active:shadow-inner tracking-wider"
+                  >
+                    <i class="ri-logout-box-line -ml-2"></i> Keluar
+                    </button>
+                    </div>
+                    </div>
+                    );
+                  };
 
 export default Sidnav;

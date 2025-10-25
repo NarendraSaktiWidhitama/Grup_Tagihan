@@ -57,8 +57,8 @@ function Login() {
         ></video>
       </div>
 
-      <div className="backdrop-blur rounded-2xl shadow-xl p-10 w-96 z-10">
-        <h1 className="text-3xl font-bold text-white text-center mb-6">
+      <div className="bg-white rounded-2xl shadow-xl p-10 w-96 z-10">
+        <h1 className="text-3xl font-bold text-center mb-6">
           Login
         </h1>
         <form onSubmit={handleLogin} className="flex flex-col gap-4 font-sans">
@@ -96,7 +96,7 @@ function Login() {
             Login
           </button>
 
-          <p className="text-center text-white text-sm">
+          <p className="text-center text-sm">
             Belum punya akun?{" "}
             <span
               className="text-blue-400 cursor-pointer hover:underline"
