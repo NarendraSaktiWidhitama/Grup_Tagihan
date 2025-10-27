@@ -157,7 +157,10 @@ const handleToggleStatus = async (item) => {
         <div
           className={`bg-gradient-to-r from-emerald-200 to-emerald-500 p-4 rounded-lg mb-6 transition-all ease-out duration-700`}
         >
-          <h1 className="text-3xl font-bold">Daftar Tagihan</h1>
+          <div className="grid grid-cols-2">
+          <i className="ri-file-list-3-fill text-3xl"></i>
+          <h1 className="text-3xl font-bold -ml-118">Daftar Tagihan</h1>
+          </div>
         </div>
 
         <div

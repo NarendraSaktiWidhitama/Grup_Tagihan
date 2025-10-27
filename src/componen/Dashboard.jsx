@@ -70,38 +70,38 @@ function Dashboard() {
     {
       title: "Total Tagihan",
       value: totalTagihan,
-      style: "text-white font-bold",
       bgColor: "bg-blue-500",
+      icon: "ri-file-list-3-line",
     },
     {
       title: "Sudah Lunas",
       value: sudahBayar,
-      style: "text-white font-bold",
       bgColor: "bg-green-500",
+      icon: "ri-checkbox-circle-line",
     },
     {
       title: "Belum Lunas",
       value: belumBayar,
-      style: "text-white font-bold",
-      bgColor: "bg-red-500",
+      bgColor: "bg-red-600",
+      icon: "ri-close-circle-line",
     },
     {
       title: "Total Nominal",
       value: `Rp ${totalNominal.toLocaleString()}`,
-      style: "text-white font-bold",
-      bgColor: "bg-yellow-500",
+      bgColor: "bg-gradient-to-r from-yellow-400 to-amber-500",
+      icon: "ri-wallet-3-line",
     },
     {
       title: "Nominal Sudah Lunas",
       value: `Rp ${totalSudahLunas.toLocaleString()}`,
-      style: "text-white font-bold",
-      bgColor: "bg-green-600",
+      bgColor: "bg-gradient-to-r from-green-400 to-emerald-600",
+      icon: "ri-bank-card-line",
     },
     {
       title: "Nominal Belum Lunas",
       value: `Rp ${totalBelumLunas.toLocaleString()}`,
-      style: "text-white font-bold",
-      bgColor: "bg-red-600",
+      bgColor: "bg-gradient-to-r from-red-400 to-rose-600",
+      icon: "ri-error-warning-line",
     },
   ];
 
@@ -115,8 +115,13 @@ function Dashboard() {
             : "opacity-0 translate-y-4"
         }`}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6 mb-8">
-          {dashboardCards.slice(0, 4).map((card, index) => (
+        <h1 className="text-3xl font-bold text-emerald-700 mb-6 flex items-center gap-2">
+          <i className="ri-dashboard-line text-emerald-600 text-3xl"></i>
+          Dashboard Keuangan
+        </h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-6 gap-y-4">
+          {dashboardCards.slice(0, 3).map((card, index) => (
             <div
               key={index}
               className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(
@@ -124,25 +129,33 @@ function Dashboard() {
                 showContent
               )}`}
             >
-              <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
-              <p className={`text-2xl ${card.style}`}>{card.value}</p>
+              <div className="flex justify-center mb-2">
+                <i className={`${card.icon} text-white text-4xl`}></i>
+              </div>
+              <h3 className="text-lg font-semibold text-white">
+                {card.title}
+              </h3>
+              <p className="text-2xl font-bold text-white">{card.value}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6 mb-8">
-          {dashboardCards.slice(4).map((card, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
+          {dashboardCards.slice(3).map((card, index) => (
             <div
-              key={index + 4}
-              className={`col-span-1 sm:col-span-2 lg:col-span-2 ${
-                card.bgColor
-              } p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(
-                index + 4,
+              key={index + 3}
+              className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(
+                index + 3,
                 showContent
               )}`}
             >
-              <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
-              <p className={`text-2xl ${card.style}`}>{card.value}</p>
+              <div className="flex justify-center mb-2">
+                <i className={`${card.icon} text-white text-4xl`}></i>
+              </div>
+              <h3 className="text-lg font-semibold text-white">
+                {card.title}
+              </h3>
+              <p className="text-2xl font-bold text-white">{card.value}</p>
             </div>
           ))}
         </div>
@@ -154,9 +167,11 @@ function Dashboard() {
               : "opacity-0 translate-y-4 delay-0"
           }`}
         >
-          <h2 className="text-lg font-semibold mb-3 pb-2">
+          <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+            <i className="ri-file-list-3-line text-emerald-600 text-xl"></i>
             Daftar Tagihan Terbaru
           </h2>
+
           <div className="overflow-x-auto">
             <table className="w-full text-center border-collapse">
               <thead className="bg-emerald-200">
@@ -169,15 +184,15 @@ function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {data.slice(0, 10).map((d, i) => (
+                {data.slice(0, data.length).map((d, i) => (
                   <tr
                     key={d.id}
                     className="hover:bg-emerald-50 transition-colors"
                   >
-                    <td className="p-2 text-right">{i + 1}</td>
+                    <td className="p-2">{i + 1}</td>
                     <td className="p-2 text-left">{d.nama}</td>
                     <td className="p-2">{d.jenis}</td>
-                    <td className="p-2 text-right">
+                    <td className="p-2">
                       Rp {d.jumlah?.toLocaleString()}
                     </td>
                     <td className="p-2">

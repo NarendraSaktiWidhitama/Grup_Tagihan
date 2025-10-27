@@ -120,7 +120,8 @@ function Jenistagihan() {
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 ${mainContentAnimationClass}`}>
         <div className="bg-gradient-to-r from-emerald-200 to-emerald-400 p-4 rounded-lg mb-6 shadow-md flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Jenis Tagihan</h1>
+          <i className="ri-price-tag-3-fill text-3xl"></i>
+          <h1 className="text-3xl font-bold -ml-162">Jenis Tagihan</h1>
           <button
             onClick={() => {
               setEditMode(false);

@@ -129,6 +129,24 @@
       "jenis": "Uang gedung",
       "jumlah": 1500000,
       "status": true
+    },
+    {
+      "id": "8760",
+      "nama": "Narendra sakti widhitama",
+      "email": "oranghidup@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "Uang gedung",
+      "jumlah": 1200000,
+      "status": false
+    },
+    {
+      "id": "68a1",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "OTOMOTIF",
+      "jenis": "Uang donasi",
+      "jumlah": 1200000,
+      "status": true
     }
   ],
   "jenis": [
@@ -154,7 +172,7 @@
       "nama": "Uang gedung",
       "keterangan": "Bayar uang gedung setiap awal semester",
       "id": "ee00",
-      "aktif": true
+      "aktif": false
     }
   ]
 }
