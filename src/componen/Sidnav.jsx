@@ -35,7 +35,7 @@ const Sidnav = () => {
 
 
     return (
-    <div className="fixed top-0 left-0 h-full w-56 shadow-2xl text-white bg-gradient-to-br from-emerald-400 to-emerald-700 flex flex-col transition-all duration-300">
+    <div className="fixed top-0 left-0 h-full w-56 shadow-2xl text-white bg-gradient-to-br from-emerald-500 to-emerald-600 flex flex-col transition-all duration-300">
       <div className="flex items-center justify-center p-4 pt-6 pb-6 border-emerald-500/30">
       <img 
       src={gambar} 

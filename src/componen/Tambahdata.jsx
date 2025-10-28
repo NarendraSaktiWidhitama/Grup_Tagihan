@@ -15,39 +15,39 @@ function Tambahdata() {
     jurusan: "",
     jenis: "",
     jumlah: "",
+    tanggal: "",
     status: false,
   });
 
   const fetchData = async () => {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const response = await axios.get("http://localhost:5000/jenis");
 
-    const response = await axios.get("http://localhost:5000/jenis");
-    const aktifJenis = response.data.filter((item) => {
-      const aktifValue =
-        typeof item.aktif === "string"
-          ? item.aktif.toLowerCase()
-          : item.aktif;
+      const aktifJenis = response.data.filter((item) => {
+        const aktifValue =
+          typeof item.aktif === "string"
+            ? item.aktif.toLowerCase()
+            : item.aktif;
 
-      return (
-        aktifValue === true ||
-        aktifValue === 1 ||
-        aktifValue === "aktif" ||
-        aktifValue === "true"
-      );
-    });
+        return (
+          aktifValue === true ||
+          aktifValue === 1 ||
+          aktifValue === "aktif" ||
+          aktifValue === "true"
+        );
+      });
 
-    setJenis(aktifJenis);
-  } catch (err) {
-    console.error("Gagal ambil data jenis:", err);
-  } finally {
-    setLoading(false);
-    setTimeout(() => {
-      setShowContent(true);
-    }, 50);
-  }
-};
-
+      setJenis(aktifJenis);
+    } catch (err) {
+      console.error("Gagal ambil data jenis:", err);
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        setShowContent(true);
+      }, 50);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -172,6 +172,19 @@ function Tambahdata() {
               className="w-full border px-4 py-2 rounded focus:ring-emerald-500 focus:border-emerald-500 transition duration-150"
               required
             />
+
+            <div>
+              <label className="block text-gray-600 mb-1">
+              </label>
+              <input
+                name="tanggal"
+                type="date"
+                value={form.tanggal}
+                onChange={handleChange}
+                className="w-full border px-4 py-2 rounded focus:ring-emerald-500 focus:border-emerald-500 transition duration-150"
+                required
+              />
+            </div>
 
             <div className="pt-4 flex gap-3">
               <button

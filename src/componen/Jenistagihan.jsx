@@ -119,9 +119,11 @@ function Jenistagihan() {
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 ${mainContentAnimationClass}`}>
-        <div className="bg-gradient-to-r from-emerald-200 to-emerald-400 p-4 rounded-lg mb-6 shadow-md flex justify-between items-center">
+        <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6 shadow-md flex justify-between items-center">
+          <div className="flex items-center gap-3">
           <i className="ri-price-tag-3-fill text-3xl"></i>
-          <h1 className="text-3xl font-bold -ml-162">Jenis Tagihan</h1>
+          <h1 className="text-3xl font-bold">Jenis Tagihan</h1>
+          </div>
           <button
             onClick={() => {
               setEditMode(false);
@@ -134,12 +136,12 @@ function Jenistagihan() {
           </button>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow w-full max-w-[1200px] mx-auto">
+        <div className="bg-white p-6 rounded-lg shadow-xl overflow-x-auto">
           <h2 className="font-semibold mb-3 text-lg pb-2">
             Daftar Jenis Tagihan
           </h2>
           <table className="w-full text-center border-collapse">
-            <thead className="bg-emerald-100 border-gray-300">
+            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
               <tr>
                 <th className="p-3">No</th>
                 <th className="p-3">Nama Jenis</th>

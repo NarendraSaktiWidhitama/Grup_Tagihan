@@ -13,30 +13,33 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 500));
+useEffect(() => {
+  const load = async () => {
+    try {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-        const [r1, r2] = await Promise.all([
-          axios.get("http://localhost:5000/data"),
-          axios.get("http://localhost:5000/jenis"),
-        ]);
+      const [r1, r2] = await Promise.all([
+        axios.get("http://localhost:5000/data"),
+        axios.get("http://localhost:5000/jenis"),
+      ]);
 
-        setData(r1.data);
-        setJenis(r2.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-        setTimeout(() => {
-          setShowContent(true);
-        }, 50);
-      }
-    };
-    load();
-  }, []);
+      const reversedData = [...r1.data].reverse();
+
+      setData(reversedData);
+      setJenis(r2.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        setShowContent(true);
+      }, 50);
+    }
+  };
+  load();
+}, []);
+
 
   if (loading && !showContent)
     return (
@@ -173,29 +176,35 @@ function Dashboard() {
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-center border-collapse">
-              <thead className="bg-emerald-200">
+            <table className="w-full text-center border-collapse text-base">
+              <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
                 <tr>
-                  <th className="p-2">No</th>
-                  <th className="p-2">Nama</th>
-                  <th className="p-2">Jenis</th>
-                  <th className="p-2">Jumlah</th>
-                  <th className="p-2">Status</th>
+                  <th className="py-2 px-3 w-[30px]">No</th>
+                  <th className="py-2 px-3 w-[160px] text-left">Nama</th>
+                  <th className="py-2 px-3 w-[130px] text-left">Jenis</th>
+                  <th className="py-2 px-3 w-[110px] text-left">Jumlah</th>
+                  <th className="py-2 px-3 w-[110px]">Tanggal</th>
+                  <th className="py-2 px-3 w-[90px]">Status</th>
                 </tr>
               </thead>
               <tbody>
-                {data.slice(0, data.length).map((d, i) => (
+                {data.map((d, i) => (
                   <tr
                     key={d.id}
                     className="hover:bg-emerald-50 transition-colors"
                   >
-                    <td className="p-2">{i + 1}</td>
-                    <td className="p-2 text-left">{d.nama}</td>
-                    <td className="p-2">{d.jenis}</td>
-                    <td className="p-2">
+                    <td className="py-2 px-3">{i + 1}</td>
+                    <td className="py-2 px-3 text-left truncate">{d.nama}</td>
+                    <td className="py-2 px-3 text-left">{d.jenis}</td>
+                    <td className="py-2 px-3 text-left">
                       Rp {d.jumlah?.toLocaleString()}
                     </td>
-                    <td className="p-2">
+                    <td className="py-2 px-3 text-center">
+                      {d.tanggal
+                        ? new Date(d.tanggal).toLocaleDateString("id-ID")
+                        : "-"}
+                    </td>
+                    <td className="py-2 px-3">
                       <span
                         className={`px-2 py-0.5 rounded text-xs font-semibold ${
                           d.status
@@ -211,8 +220,8 @@ function Dashboard() {
                 {data.length === 0 && (
                   <tr>
                     <td
-                      colSpan="5"
-                      className="p-4 text-gray-500 border text-center"
+                      colSpan="6"
+                      className="p-4 text-gray-500 text-center"
                     >
                       Tidak ada data tagihan.
                     </td>

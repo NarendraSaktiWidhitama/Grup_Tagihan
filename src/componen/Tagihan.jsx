@@ -11,36 +11,33 @@ function Tagihan() {
   const [showContent, setShowContent] = useState(false);
   const navigate = useNavigate();
 
-  const fetchData = async (filterJenis = "") => {
-    if (!loading) setLoading(true);
-
-    try {
-      if (!showContent) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
-
-      const dataUrl = filterJenis
-        ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
-        : "http://localhost:5000/data";
-
-      const [r1, r2] = await Promise.all([
-        axios.get(dataUrl),
-        axios.get("http://localhost:5000/jenis"),
-      ]);
-      setData(r1.data);
-      setJenis(r2.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-
-      if (!showContent) {
-        setTimeout(() => {
-          setShowContent(true);
-        }, 50);
-      }
+const fetchData = async (filterJenis = "") => {
+  if (!loading) setLoading(true);
+  try {
+    if (!showContent) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
-  };
+
+    const dataUrl = filterJenis
+      ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
+      : "http://localhost:5000/data";
+
+    const [r1, r2] = await Promise.all([
+      axios.get(dataUrl),
+      axios.get("http://localhost:5000/jenis"),
+    ]);
+
+    const reversedData = [...r1.data].reverse();
+
+    setData(reversedData);
+    setJenis(r2.data);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+    if (!showContent) setTimeout(() => setShowContent(true), 50);
+  }
+};
 
   useEffect(() => {
     fetchData();
@@ -51,21 +48,21 @@ function Tagihan() {
     fetchData(val);
   };
 
-const handleToggleStatus = async (item) => {
-  const newStatus = !item.status;
+  const handleToggleStatus = async (item) => {
+    const newStatus = !item.status;
+    const result = await Swal.fire({
+      title: "Yakin ingin ubah status?",
+      text: newStatus
+        ? "Status akan diubah menjadi Lunas."
+        : "Status akan diubah menjadi Belum Lunas.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Ya, ubah!",
+      cancelButtonText: "Batal",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    });
 
-  Swal.fire({
-    title: "Yakin ingin ubah status?",
-    text: newStatus
-      ? "Status akan diubah menjadi Lunas."
-      : "Status akan diubah menjadi Belum Lunas.",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "Ya, ubah!",
-    cancelButtonText: "Batal",
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-  }).then(async (result) => {
     if (result.isConfirmed) {
       try {
         await axios.patch(`http://localhost:5000/data/${item.id}`, {
@@ -87,19 +84,9 @@ const handleToggleStatus = async (item) => {
         });
       } catch (err) {
         Swal.fire("Error!", "Terjadi kesalahan saat mengubah status.", "error");
-        console.error(err);
       }
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire({
-        title: "Dibatalkan",
-        text: "Perubahan status tidak jadi dilakukan.",
-        icon: "info",
-        timer: 1300,
-        showConfirmButton: false,
-      });
     }
-  });
-};
+  };
 
   const handleDelete = async (d) => {
     const result = await Swal.fire({
@@ -124,7 +111,7 @@ const handleToggleStatus = async (item) => {
           showConfirmButton: false,
           timer: 1200,
         });
-      } catch (err) {
+      } catch {
         Swal.fire({
           icon: "error",
           title: "Gagal!",
@@ -154,18 +141,14 @@ const handleToggleStatus = async (item) => {
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 ${baseAnimation}`}>
-        <div
-          className={`bg-gradient-to-r from-emerald-200 to-emerald-500 p-4 rounded-lg mb-6 transition-all ease-out duration-700`}
-        >
-          <div className="grid grid-cols-2">
-          <i className="ri-file-list-3-fill text-3xl"></i>
-          <h1 className="text-3xl font-bold -ml-118">Daftar Tagihan</h1>
+        <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
+          <div className="flex items-center gap-3">
+            <i className="ri-file-list-3-fill text-3xl"></i>
+            <h1 className="text-2xl font-bold">Daftar Tagihan</h1>
           </div>
         </div>
 
-        <div
-          className={`flex justify-between items-center mb-4 transition-all ease-out duration-700 delay-100 ${baseAnimation}`}
-        >
+        <div className="flex justify-between items-center mb-4">
           <div>
             <label className="font-medium mr-2">Filter jenis:</label>
             <select
@@ -189,76 +172,87 @@ const handleToggleStatus = async (item) => {
           </button>
         </div>
 
-        <div
-          className={`bg-white p-4 rounded-lg shadow transition-all ease-out duration-700 delay-200 ${baseAnimation}`}
-        >
-          <table className="w-full text-center border-collapse">
-            <thead className="bg-emerald-200">
+        <div className="bg-white p-5 rounded-lg shadow-xl overflow-x-auto">
+          <table className="w-full text-[15px] border-collapse">
+            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
               <tr>
-                <th className="p-2">No</th>
-                <th className="p-2">Nama</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Jenis</th>
-                <th className="p-2">Jumlah</th>
-                <th className="p-2">Status</th>
-                <th className="p-2">Aksi</th>
+                <th className="py-2 px-3 w-[40px]">No</th>
+                <th className="py-2 px-3 w-[180px]">Nama</th>
+                <th className="py-2 px-3 w-[220px]">Email</th>
+                <th className="py-2 px-3 w-[130px]">Jenis</th>
+                <th className="py-2 px-3 w-[110px]">Jumlah</th>
+                <th className="py-2 px-3 w-[110px]">Tanggal</th>
+                <th className="py-2 px-3 w-[100px]">Status</th>
+                <th className="py-2 px-3 w-[160px]">Aksi</th>
               </tr>
             </thead>
             <tbody>
               {data.map((d, i) => (
                 <tr
                   key={d.id}
-                  className={`transition-colors ${
-                    d.status === "Lunas"
-                      ? "bg-green-50 hover:bg-green-100"
-                      : "hover:bg-emerald-50"
+                  className={`${
+                    d.status ? "bg-green-50" : "hover:bg-gray-50"
                   }`}
                 >
-                  <td className="p-2 text-right">{i + 1}</td>
-                  <td className="p-2 text-left text-nowrap">{d.nama}</td>
-                  <td className="p-2 text-left text-nowrap">{d.email}</td>
-                  <td className="p-2 text-nowrap">{d.jenis}</td>
-                  <td className="p-2 text-right text-nowrap">
-                    Rp {d.jumlah?.toLocaleString()}
+                  <td className="py-2 px-3 text-right">{i + 1}</td>
+                  <td
+                    className="py-2 px-3 text-left truncate max-w-[170px]"
+                    title={d.nama}
+                  >
+                    {d.nama}
                   </td>
                   <td
-                  className={`p-2 font-semibold ${
-                    d.status ? "text-green-600" : "text-red-500"
+                    className="py-2 px-3 text-left truncate max-w-[200px]"
+                    title={d.email}
+                  >
+                    {d.email}
+                  </td>
+                  <td
+                    className="py-2 px-3 text-center truncate max-w-[120px]"
+                    title={d.jenis}
+                  >
+                    {d.jenis}
+                  </td>
+                  <td className="py-2 px-3 text-right text-nowrap">
+                    Rp {d.jumlah?.toLocaleString()}
+                  </td>
+                  <td className="py-2 px-3 text-center text-nowrap">
+                    {d.tanggal
+                      ? new Date(d.tanggal).toLocaleDateString("id-ID")
+                      : "-"}
+                  </td>
+                  <td
+                    className={`py-2 px-3 text-center font-semibold text-nowrap ${
+                      d.status ? "text-green-600" : "text-red-500"
                     }`}
+                  >
+                    {d.status ? "Lunas" : "Belum Lunas"}
+                  </td>
+                  <td className="py-2 px-3 flex justify-center gap-1">
+                    <button
+                      onClick={() => navigate(`/edit/${d.id}`)}
+                      className="p-1 text-lg hover:scale-125 transition"
                     >
-                      {d.status ? "Lunas" : "Belum Lunas"}
-                      </td>
-                      <td className="p-2 flex justify-center gap-2">
-                        <button
-                        onClick={() => navigate(`/edit/${d.id}`)}
-                        className="p-2 rounded transition hover:scale-[1.30]"
-                        >
-                          ✏️
-                          </button>
-                          <button
-                          onClick={() => handleDelete(d)}
-                          className="p-2 rounded transition hover:scale-[1.30]"
-                          >
-                            🗑️
-                            </button>
-                            
-                            <button
-                            onClick={() => handleToggleStatus(d)}
-                            className={`min-w-[130px] text-sm px-2 py-1 rounded transition shadow-md text-white ${
-                              d.status
-                              ? "bg-green-500 hover:bg-green-600 transition hover:scale-[1.06]"
-                              : "bg-green-500 hover:bg-green-600 transition hover:scale-[1.06]"
-                            }`}
-                            >
-                              {d.status ? "Ubah data" : "Ubah data"}
-                              </button>
-                              </td>
-
+                      ✏️
+                    </button>
+                    <button
+                      onClick={() => handleDelete(d)}
+                      className="p-1 text-lg hover:scale-125 transition"
+                    >
+                      🗑️
+                    </button>
+                    <button
+                      onClick={() => handleToggleStatus(d)}
+                      className="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded transition text-nowrap"
+                    >
+                      Ubah data
+                    </button>
+                  </td>
                 </tr>
               ))}
               {data.length === 0 && (
                 <tr>
-                  <td colSpan="7" className="p-6 text-gray-500">
+                  <td colSpan="8" className="p-6 text-gray-500 text-center">
                     Tidak ada data
                   </td>
                 </tr>
