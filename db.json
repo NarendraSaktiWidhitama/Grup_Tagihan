@@ -51,6 +51,26 @@
       "jumlah": 250000,
       "tanggal": "2025-10-22",
       "status": false
+    },
+    {
+      "id": "1193",
+      "nama": "Narendra sakti widhitama",
+      "email": "vantot@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "tanggal": "2025-10-29",
+      "status": false
+    },
+    {
+      "id": "2163",
+      "nama": "Bibir gajah",
+      "email": "yurayurawa2222@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "SPP Bulanan",
+      "jumlah": 1200000,
+      "tanggal": "2025-10-10",
+      "status": false
     }
   ],
   "jenis": [
@@ -76,7 +96,7 @@
       "nama": "Uang gedung",
       "keterangan": "Bayar uang gedung setiap awal semester",
       "id": "ee00",
-      "aktif": false
+      "aktif": true
     }
   ]
 }
