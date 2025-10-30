@@ -60,17 +60,7 @@
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
       "tanggal": "2025-10-29",
-      "status": false
-    },
-    {
-      "id": "2163",
-      "nama": "Bibir gajah",
-      "email": "yurayurawa2222@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "SPP Bulanan",
-      "jumlah": 1200000,
-      "tanggal": "2025-10-10",
-      "status": false
+      "status": true
     }
   ],
   "jenis": [
