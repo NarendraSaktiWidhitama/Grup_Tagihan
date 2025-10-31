@@ -23,43 +23,83 @@
   ],
   "data": [
     {
-      "id": "cbb1",
+      "id": "a2f3",
       "nama": "Narendra sakti widhitama",
-      "email": "wwwwwwww@gmail.com",
-      "jurusan": "PPLG",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "tanggal": "2025-10-26",
-      "status": true
-    },
-    {
-      "id": "f098",
-      "nama": "Bibir gajah",
       "email": "yurayurawa2222@gmail.com",
-      "jurusan": "DKV",
-      "jenis": "Uang Ujian",
-      "jumlah": 1200000,
-      "tanggal": "2025-10-20",
-      "status": true
-    },
-    {
-      "id": "fed5",
-      "nama": "Reza yanto",
-      "email": "yurayurawaafafafaf@gmail.com",
       "jurusan": "PPLG",
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
-      "tanggal": "2025-10-22",
+      "tanggal": "2025-10-07",
+      "status": true
+    },
+    {
+      "id": "1456",
+      "nama": "Darren sefthiros jacobson",
+      "email": "seft@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "tanggal": "2025-10-07",
+      "status": true
+    },
+    {
+      "id": "a4aa",
+      "nama": "Adrean syahputra",
+      "email": "rean@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 1500000,
+      "tanggal": "2025-10-10",
+      "status": true
+    },
+    {
+      "id": "b98e",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawa2222@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "Uang gedung",
+      "jumlah": 2000000,
+      "tanggal": "2025-10-16",
+      "status": true
+    },
+    {
+      "id": "ed09",
+      "nama": "Bibir gajah",
+      "email": "yanto@gmail.com",
+      "jurusan": "OTOMOTIF",
+      "jenis": "Uang Ujian",
+      "jumlah": 500000,
+      "tanggal": "2025-11-04",
+      "status": true
+    },
+    {
+      "id": "7e8a",
+      "nama": "Muhammad raffy wicaksana",
+      "email": "sinya@gmail.com",
+      "jurusan": "TKJ",
+      "jenis": "Uang gedung",
+      "jumlah": 1200000,
+      "tanggal": "2025-11-08",
       "status": false
     },
     {
-      "id": "1193",
-      "nama": "Narendra sakti widhitama",
-      "email": "vantot@gmail.com",
-      "jurusan": "DKV",
+      "id": "8557",
+      "nama": "Alvin bayu",
+      "email": "alvin@gmail.com",
+      "jurusan": "AKL",
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
-      "tanggal": "2025-10-29",
+      "tanggal": "2025-11-10",
+      "status": true
+    },
+    {
+      "id": "67eb",
+      "nama": "Arif riansyah",
+      "email": "arif@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Seragam Sekolah",
+      "jumlah": 1500000,
+      "tanggal": "2025-11-29",
       "status": true
     }
   ],

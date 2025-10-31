@@ -140,7 +140,7 @@ const fetchData = async (filterJenis = "") => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
-      <div className={`flex-1 p-8 ml-56 ${baseAnimation}`}>
+      <div className={`flex-1 p-8 ml-56 overflow-x-hidden ${baseAnimation}`}>
         <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
           <div className="flex items-center gap-3">
             <i className="ri-file-list-3-fill text-3xl"></i>
@@ -172,7 +172,7 @@ const fetchData = async (filterJenis = "") => {
           </button>
         </div>
 
-        <div className="bg-white p-5 rounded-lg shadow-xl overflow-x-auto">
+        <div className="bg-white p-5 rounded-lg shadow-xl">
           <table className="w-full text-[15px] border-collapse">
             <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
               <tr>
