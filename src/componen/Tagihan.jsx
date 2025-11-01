@@ -172,7 +172,7 @@ const fetchData = async (filterJenis = "") => {
           </button>
         </div>
 
-        <div className="bg-white p-5 rounded-lg shadow-xl">
+        <div className="bg-white p-5 -ml-5 rounded-lg shadow-xl">
           <table className="w-full text-[15px] border-collapse">
             <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
               <tr>
@@ -195,24 +195,36 @@ const fetchData = async (filterJenis = "") => {
                   }`}
                 >
                   <td className="py-2 px-3 text-right">{i + 1}</td>
-                  <td
-                    className="py-2 px-3 text-left truncate max-w-[170px]"
-                    title={d.nama}
-                  >
-                    {d.nama}
-                  </td>
-                  <td
-                    className="py-2 px-3 text-left truncate max-w-[200px]"
-                    title={d.email}
-                  >
-                    {d.email}
-                  </td>
-                  <td
-                    className="py-2 px-3 text-center truncate max-w-[120px]"
-                    title={d.jenis}
-                  >
-                    {d.jenis}
-                  </td>
+
+{/* NAMA */}
+<td className="py-2 px-3 text-left max-w-[180px] relative group">
+  <span className="truncate block">{d.nama}</span>
+  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
+                  bg-gray-800 text-white text-sm rounded-md px-2 py-1 shadow-lg
+                  whitespace-nowrap z-10">
+    {d.nama}
+  </div>
+</td>
+
+{/* EMAIL */}
+<td className="py-2 px-3 text-left max-w-[200px] relative group">
+  <span className="truncate block">{d.email}</span>
+  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
+                  bg-blue-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
+                  whitespace-nowrap z-10">
+    {d.email}
+  </div>
+</td>
+
+{/* JENIS */}
+<td className="py-2 px-3 text-center max-w-[150px] relative group">
+  <span className="truncate block">{d.jenis}</span>
+  <div className="absolute left-1/2 top-full -mt-4 ml-1 -translate-x-1/2 hidden group-hover:block 
+                  bg-green-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
+                  whitespace-nowrap z-10">
+    {d.jenis}
+  </div>
+</td>
                   <td className="py-2 px-3 text-right text-nowrap">
                     Rp {d.jumlah?.toLocaleString()}
                   </td>

@@ -101,6 +101,16 @@
       "jumlah": 1500000,
       "tanggal": "2025-11-29",
       "status": true
+    },
+    {
+      "id": "5e73",
+      "nama": "Paduka vanz",
+      "email": "vanz@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "tanggal": "2025-11-08",
+      "status": true
     }
   ],
   "jenis": [
