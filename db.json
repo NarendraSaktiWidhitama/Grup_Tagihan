@@ -103,14 +103,24 @@
       "status": true
     },
     {
-      "id": "5e73",
-      "nama": "Paduka vanz",
-      "email": "vanz@gmail.com",
-      "jurusan": "PPLG",
-      "jenis": "SPP Bulanan",
-      "jumlah": 250000,
-      "tanggal": "2025-11-08",
-      "status": true
+      "id": "6b12",
+      "nama": "Adrean syahputra",
+      "email": "rean@gmail.com",
+      "jurusan": "AKL",
+      "jenis": "Uang Ujian",
+      "jumlah": 2500000,
+      "tanggal": "2025-11-05",
+      "status": false
+    },
+    {
+      "id": "6ca8",
+      "nama": "Reza kevala",
+      "email": "vantot@gmail.com",
+      "jurusan": "DKV",
+      "jenis": "Uang Ujian",
+      "jumlah": 1200000,
+      "tanggal": "2025-11-03",
+      "status": false
     }
   ],
   "jenis": [

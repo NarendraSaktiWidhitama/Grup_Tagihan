@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Sidnav from "./Sidnav";
+import Sidnav from "../src/componen/Sidnav";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-function Tagihan() {
+function Kategoridata() {
   const [data, setData] = useState([]);
   const [jenis, setJenis] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -139,7 +139,7 @@ const fetchData = async (filterJenis = "") => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidnav />
+        <Sidnav />
       <div className={`flex-1 p-8 ml-56 overflow-x-hidden ${baseAnimation}`}>
         <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
           <div className="flex items-center gap-3">
@@ -274,4 +274,4 @@ const fetchData = async (filterJenis = "") => {
   );
 }
 
-export default Tagihan;
+export default Kategoridata;

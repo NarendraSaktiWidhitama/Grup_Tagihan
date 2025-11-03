@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
-import gambar from "../assets/uang.png"
 import 'remixicon/fonts/remixicon.css'
 
 const Sidnav = () => {
@@ -37,13 +36,8 @@ const Sidnav = () => {
     return (
     <div className="fixed top-0 left-0 h-full w-56 shadow-2xl text-white bg-gradient-to-br from-emerald-500 to-emerald-600 flex flex-col transition-all duration-300">
       <div className="flex items-center justify-center p-4 pt-6 pb-6 border-emerald-500/30">
-      <img 
-      src={gambar} 
-      alt="gambar uang" 
-      className="w-14 h-14 -ml-10" 
-      />
       <div className="text-2xl font-black tracking-widest uppercase">
-         MENU
+         DATABASE
          </div>
          </div>
          
@@ -53,6 +47,13 @@ const Sidnav = () => {
           className={`${baseLinkClasses} ${isActive('/dashboard') ? activeLinkClasses : inactiveLinkClasses}`}
           >
             <i className="ri-dashboard-fill text-xl"></i> Dashboard
+            </Link>
+
+            <Link 
+          to="/Kategoridata" 
+          className={`${baseLinkClasses} ${isActive('/Kategoridata') ? activeLinkClasses : inactiveLinkClasses}`}
+          >
+            <i className="ri-dashboard-fill text-xl"></i> Kategoridata
             </Link>
             
             <Link 
@@ -66,7 +67,13 @@ const Sidnav = () => {
               to="/Jenistagihan" 
               className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
               >
-                <i className="ri-price-tag-3-fill text-xl"></i> Jenis Tagihan
+                <i className="ri-price-tag-3-fill text-xl"></i> Kategori tagihan
+                </Link>
+                <Link
+              to="/Rekaptagihan" 
+              className={`${baseLinkClasses} ${isActive('/Rekaptagihan') ? activeLinkClasses : inactiveLinkClasses}`}
+              >
+                <i class="ri-folder-history-fill text-xl"></i> Rekap Tagihan
                 </Link>
                 </nav>
                 
