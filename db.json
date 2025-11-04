@@ -121,6 +121,16 @@
       "jumlah": 1200000,
       "tanggal": "2025-11-03",
       "status": false
+    },
+    {
+      "id": "5372",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "tanggal": "2025-11-05",
+      "status": false
     }
   ],
   "jenis": [
@@ -148,5 +158,21 @@
       "id": "ee00",
       "aktif": true
     }
-  ]
+  ],
+  "kategori": [
+    {
+      "id": "1",
+      "nama": "Siswa"
+    },
+    {
+      "id": "2",
+      "nama": "Guru"
+    },
+    {
+      "id": "3",
+      "nama": "TU"
+    }
+  ],
+  "kategoridata": [],
+  "kelas": []
 }

@@ -6,267 +6,148 @@ import Swal from "sweetalert2";
 
 function Kategoridata() {
   const [data, setData] = useState([]);
-  const [jenis, setJenis] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [filter, setFilter] = useState("Semua");
+  const [search, setSearch] = useState(""); // ← SEARCH
   const [loading, setLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
   const navigate = useNavigate();
 
-const fetchData = async (filterJenis = "") => {
-  if (!loading) setLoading(true);
-  try {
-    if (!showContent) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("http://localhost:5000/kategoridata");
+      const result = res.data.reverse();
+      setData(result);
+      setFiltered(result);
+    } finally {
+      setLoading(false);
     }
-
-    const dataUrl = filterJenis
-      ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
-      : "http://localhost:5000/data";
-
-    const [r1, r2] = await Promise.all([
-      axios.get(dataUrl),
-      axios.get("http://localhost:5000/jenis"),
-    ]);
-
-    const reversedData = [...r1.data].reverse();
-
-    setData(reversedData);
-    setJenis(r2.data);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-    if (!showContent) setTimeout(() => setShowContent(true), 50);
-  }
-};
+  };
 
   useEffect(() => {
-    fetchData();
+    loadData();
   }, []);
 
-  const handleFilterChange = (e) => {
-    const val = e.target.value;
-    fetchData(val);
-  };
+  // Filter kategori + search
+  useEffect(() => {
+    let result = data;
 
-  const handleToggleStatus = async (item) => {
-    const newStatus = !item.status;
-    const result = await Swal.fire({
-      title: "Yakin ingin ubah status?",
-      text: newStatus
-        ? "Status akan diubah menjadi Lunas."
-        : "Status akan diubah menjadi Belum Lunas.",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Ya, ubah!",
-      cancelButtonText: "Batal",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        await axios.patch(`http://localhost:5000/data/${item.id}`, {
-          status: newStatus,
-        });
-
-        setData((prev) =>
-          prev.map((d) => (d.id === item.id ? { ...d, status: newStatus } : d))
-        );
-
-        Swal.fire({
-          title: "Berhasil!",
-          text: newStatus
-            ? "Selamat Tagihan telah dilunasi!"
-            : "Tagihan dikembalikan menjadi belum lunas.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } catch (err) {
-        Swal.fire("Error!", "Terjadi kesalahan saat mengubah status.", "error");
-      }
+    if (filter !== "Semua") {
+      result = result.filter((d) => d.kategori === filter);
     }
-  };
 
-  const handleDelete = async (d) => {
-    const result = await Swal.fire({
-      title: "Yakin ingin menghapus?",
-      text: "Data yang sudah dihapus tidak bisa dikembalikan!",
+    if (search.trim() !== "") {
+      result = result.filter(
+        (d) =>
+          d.nama.toLowerCase().includes(search.toLowerCase()) ||
+          d.email.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFiltered(result);
+  }, [filter, search, data]);
+
+  const deleteData = async (id) => {
+    const ask = await Swal.fire({
+      title: "Hapus kategori?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#e74c3c",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Ya, hapus!",
+      confirmButtonText: "Ya",
       cancelButtonText: "Batal",
     });
 
-    if (result.isConfirmed) {
-      try {
-        await axios.delete(`http://localhost:5000/data/${d.id}`);
-        setData((prev) => prev.filter((x) => x.id !== d.id));
-        Swal.fire({
-          icon: "success",
-          title: "Terhapus!",
-          text: "Data berhasil dihapus.",
-          showConfirmButton: false,
-          timer: 1200,
-        });
-      } catch {
-        Swal.fire({
-          icon: "error",
-          title: "Gagal!",
-          text: "Terjadi kesalahan saat menghapus data.",
-        });
-      }
-    }
+    if (!ask.isConfirmed) return;
+
+    await axios.delete(`http://localhost:5000/kategoridata/${id}`);
+    loadData();
+    Swal.fire("Berhasil", "Kategori dihapus", "success");
   };
 
-  if (loading && !showContent)
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-          <p className="mt-4 text-xl font-medium text-gray-700">
-            Memuat tagihan
-          </p>
-        </div>
-      </div>
-    );
-
-  const baseAnimation = showContent
-    ? "opacity-100 translate-y-0 transition-all duration-700 ease-out"
-    : "opacity-0 translate-y-4";
-
   return (
-    <div className="flex min-h-screen bg-gray-50">
-        <Sidnav />
-      <div className={`flex-1 p-8 ml-56 overflow-x-hidden ${baseAnimation}`}>
-        <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
-          <div className="flex items-center gap-3">
-            <i className="ri-file-list-3-fill text-3xl"></i>
-            <h1 className="text-2xl font-bold">Daftar Tagihan</h1>
-          </div>
-        </div>
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidnav />
 
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <label className="font-medium mr-2">Filter jenis:</label>
-            <select
-              className="border rounded px-3 py-1 transition-all"
-              onChange={handleFilterChange}
-            >
-              <option value="">Semua</option>
-              {jenis.map((j) => (
-                <option key={j.id} value={j.nama}>
-                  {j.nama}
-                </option>
-              ))}
-            </select>
-          </div>
+      <div className="flex-1 p-8 ml-56 transition-all">
+        <h1 className="text-2xl font-bold mb-6">
+          <i className="ri-folder-2-fill mr-2"></i> Kategori Data
+        </h1>
+
+        <div className="flex justify-between mb-4 items-center">
+
+          {/* FILTER SELECT */}
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="border px-3 py-2 rounded bg-white shadow"
+          >
+            <option>Semua</option>
+            <option>Siswa</option>
+            <option>Guru</option>
+            <option>Karyawan</option>
+          </select>
+
+          {/* SEARCH */}
+          <input
+            type="text"
+            placeholder="Cari nama"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border px-4 py-2 rounded shadow w-64"
+          />
 
           <button
-            onClick={() => navigate("/tambahdata")}
-            className="bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-600 transition transform hover:scale-105"
+            onClick={() => navigate("/tambahkategori")}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
           >
-            + Tambah Data
+            + Tambah Kategori
           </button>
         </div>
 
-        <div className="bg-white p-5 -ml-5 rounded-lg shadow-xl">
-          <table className="w-full text-[15px] border-collapse">
-            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
+        <div className="bg-white shadow rounded p-5">
+          <table className="w-full text-left border-collapse">
+            <thead className="bg-blue-200">
               <tr>
-                <th className="py-2 px-3 w-[40px]">No</th>
-                <th className="py-2 px-3 w-[180px]">Nama</th>
-                <th className="py-2 px-3 w-[220px]">Email</th>
-                <th className="py-2 px-3 w-[130px]">Jenis</th>
-                <th className="py-2 px-3 w-[110px]">Jumlah</th>
-                <th className="py-2 px-3 w-[110px]">Tanggal</th>
-                <th className="py-2 px-3 w-[100px]">Status</th>
-                <th className="py-2 px-3 w-[160px]">Aksi</th>
+                <th className="p-2">No</th>
+                <th className="p-2">Nama</th>
+                <th className="p-2">Email</th>
+                <th className="p-2">Jabatan</th>
+                <th className="p-2">Kategori</th>
+                <th className="p-2">Tanggal</th>
+                <th className="p-2 text-center">Aksi</th>
               </tr>
             </thead>
+
             <tbody>
-              {data.map((d, i) => (
-                <tr
-                  key={d.id}
-                  className={`${
-                    d.status ? "bg-green-50" : "hover:bg-gray-50"
-                  }`}
-                >
-                  <td className="py-2 px-3 text-right">{i + 1}</td>
+              {filtered.map((d, i) => (
+                <tr key={d.id} className="hover:bg-gray-50">
+                  <td className="p-2">{i + 1}</td>
+                  <td className="p-2">{d.nama}</td>
+                  <td className="p-2">{d.email}</td>
+                  <td className="p-2">{d.jabatan}</td>
+                  <td className="p-2">{d.kategori}</td>
+                  <td className="p-2">{d.tanggal}</td>
 
-<td className="py-2 px-3 text-left max-w-[180px] relative group">
-  <span className="truncate block">{d.nama}</span>
-  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
-                  bg-gray-800 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.nama}
-  </div>
-</td>
-
-<td className="py-2 px-3 text-left max-w-[200px] relative group">
-  <span className="truncate block">{d.email}</span>
-  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
-                  bg-blue-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.email}
-  </div>
-</td>
-
-<td className="py-2 px-3 text-center max-w-[150px] relative group">
-  <span className="truncate block">{d.jenis}</span>
-  <div className="absolute left-1/2 top-full -mt-4 ml-1 -translate-x-1/2 hidden group-hover:block 
-                  bg-green-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.jenis}
-  </div>
-</td>
-                  <td className="py-2 px-3 text-right text-nowrap">
-                    Rp {d.jumlah?.toLocaleString()}
-                  </td>
-                  <td className="py-2 px-3 text-center text-nowrap">
-                    {d.tanggal
-                      ? new Date(d.tanggal).toLocaleDateString("id-ID")
-                      : "-"}
-                  </td>
-                  <td
-                    className={`py-2 px-3 text-center font-semibold text-nowrap ${
-                      d.status ? "text-green-600" : "text-red-500"
-                    }`}
-                  >
-                    {d.status ? "Lunas" : "Belum Lunas"}
-                  </td>
-                  <td className="py-2 px-3 flex justify-center gap-1">
+                  <td className="p-2 text-center">
                     <button
-                      onClick={() => navigate(`/edit/${d.id}`)}
-                      className="p-1 text-lg hover:scale-125 transition"
+                      onClick={() => navigate(`/editkategori/${d.id}`)}
+                      className="mr-3"
                     >
                       ✏️
                     </button>
-                    <button
-                      onClick={() => handleDelete(d)}
-                      className="p-1 text-lg hover:scale-125 transition"
-                    >
-                      🗑️
-                    </button>
-                    <button
-                      onClick={() => handleToggleStatus(d)}
-                      className="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded transition text-nowrap"
-                    >
-                      Ubah data
-                    </button>
+                    <button onClick={() => deleteData(d.id)}>🗑️</button>
                   </td>
                 </tr>
               ))}
-              {data.length === 0 && (
+
+              {filtered.length === 0 && (
                 <tr>
-                  <td colSpan="8" className="p-6 text-gray-500 text-center">
-                    Tidak ada data
+                  <td colSpan="7" className="text-center p-4 text-gray-500">
+                    Tidak ada data yang cocok
                   </td>
                 </tr>
               )}
             </tbody>
+
           </table>
         </div>
       </div>

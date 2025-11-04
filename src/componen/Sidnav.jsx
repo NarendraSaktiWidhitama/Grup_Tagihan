@@ -1,92 +1,100 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
 
 const Sidnav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
-  
+
   const handleLogout = async () => {
     const result = await Swal.fire({
       title: "Yakin ingin Keluar?",
-      text: "Anda akan diarahkan ke halaman utama.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#10b981",
       cancelButtonColor: "#d33",
       confirmButtonText: "Ya, Keluar!",
-      cancelButtonText: "Batal",
-     });
-     
-     if (result.isConfirmed) {
-      navigate("/");
-     }
-    };
+    });
 
-    const baseLinkClasses = "block w-full py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.03] text-left px-5";
-  
-    const inactiveLinkClasses = "hover:bg-emerald-700/70 shadow-none";
+    if (result.isConfirmed) navigate("/");
+  };
 
-    const activeLinkClasses = "bg-emerald-300 text-emerald-900 shadow-lg border-l-4 border-white transform scale-[1.01]";
+  const linkClass = (path) =>
+    `flex items-center gap-2 px-5 py-2.5 rounded-md font-medium transition-all ${
+      isActive(path)
+        ? "bg-white text-emerald-700 font-bold shadow-md"
+        : "text-white/90 hover:bg-emerald-700/40"
+    }`;
 
+  return (
+    <div className="fixed top-0 left-0 h-full w-56 bg-emerald-600 shadow-2xl text-white flex flex-col">
 
-    return (
-    <div className="fixed top-0 left-0 h-full w-56 shadow-2xl text-white bg-gradient-to-br from-emerald-500 to-emerald-600 flex flex-col transition-all duration-300">
-      <div className="flex items-center justify-center p-4 pt-6 pb-6 border-emerald-500/30">
-      <div className="text-2xl font-black tracking-widest uppercase">
-         DATABASE
-         </div>
-         </div>
-         
-         <nav className="space-y-3 px-3 flex-1">
-          <Link 
-          to="/dashboard" 
-          className={`${baseLinkClasses} ${isActive('/dashboard') ? activeLinkClasses : inactiveLinkClasses}`}
-          >
-            <i className="ri-dashboard-fill text-xl"></i> Dashboard
-            </Link>
+      {/* Logo / Title */}
+      <div className="text-center py-6 font-black tracking-wide text-lg border-b border-emerald-400/30">
+        DATABASE APP
+      </div>
 
-            <Link 
-          to="/Kategoridata" 
-          className={`${baseLinkClasses} ${isActive('/Kategoridata') ? activeLinkClasses : inactiveLinkClasses}`}
-          >
-            <i className="ri-dashboard-fill text-xl"></i> Kategoridata
-            </Link>
-            
-            <Link 
-            to="/tagihan" 
-            className={`${baseLinkClasses} ${isActive('/tagihan') ? activeLinkClasses : inactiveLinkClasses}`}
-            >
-              <i className="ri-file-list-3-fill text-xl"></i> Tagihan
-              </Link>
-              
-              <Link
-              to="/Jenistagihan" 
-              className={`${baseLinkClasses} ${isActive('/Jenistagihan') ? activeLinkClasses : inactiveLinkClasses}`}
-              >
-                <i className="ri-price-tag-3-fill text-xl"></i> Kategori tagihan
-                </Link>
-                <Link
-              to="/Rekaptagihan" 
-              className={`${baseLinkClasses} ${isActive('/Rekaptagihan') ? activeLinkClasses : inactiveLinkClasses}`}
-              >
-                <i class="ri-folder-history-fill text-xl"></i> Rekap Tagihan
-                </Link>
-                </nav>
-                
-                <div className="p-4 mt-auto">
-                  <button 
-                  onClick={handleLogout} 
-                  className="block w-full py-3 px-3 rounded-lg bg-red-600 shadow-xl hover:bg-red-700 font-bold text-center transition-all duration-150 transform hover:scale-[1.03] active:scale-95 active:shadow-inner tracking-wider"
-                  >
-                    <i class="ri-logout-box-line -ml-2"></i> Keluar
-                    </button>
-                    </div>
-                    </div>
-                    );
-                  };
+      {/* MENU */}
+      <div className="flex-1 overflow-y-auto px-3 mt-3 space-y-5">
+
+        {/* Section: Dashboard */}
+        <div>
+          <p className="text-xs font-bold text-white/70 mb-1 px-2 uppercase">
+            Dashboard
+          </p>
+          <Link to="/dashboard" className={linkClass("/dashboard")}>
+            <i className="ri-dashboard-fill"></i> Dashboard
+          </Link>
+        </div>
+
+        {/* Section: Database */}
+        <div>
+          <p className="text-xs font-bold text-white/70 mb-1 px=2 uppercase">
+            Database
+          </p>
+          <Link to="/Kategoridata" className={linkClass("/Kategoridata")}>
+            <i className="ri-folder-user-fill"></i> Kategori Data
+          </Link>
+          <Link to="/Kelas" className={linkClass("/Kelas")}>
+            <i className="ri-group-fill"></i> Kelas
+          </Link>
+          <Link to="/Masterdata" className={linkClass("/Masterdata")}>
+            <i className="ri-database-2-fill"></i> Master Data
+          </Link>
+        </div>
+
+        {/* Section: Keuangan */}
+        <div>
+          <p className="text-xs font-bold text-white/70 mb-1 px-2 uppercase">
+            Keuangan
+          </p>
+          <Link to="/Jenistagihan" className={linkClass("/Jenistagihan")}>
+            <i className="ri-price-tag-3-fill"></i> Kategori Tagihan
+          </Link>
+          <Link to="/tagihan" className={linkClass("/tagihan")}>
+            <i className="ri-file-list-3-fill"></i> Tagihan
+          </Link>
+          <Link to="/Rekaptagihan" className={linkClass("/Rekaptagihan")}>
+            <i className="ri-history-fill"></i> Rekap Tagihan
+          </Link>
+        </div>
+
+      </div>
+
+      {/* Logout */}
+      <div className="p-3 border-t border-emerald-400/30">
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-600 hover:bg-red-700 py-2 rounded-md font-bold flex items-center justify-center gap-2"
+        >
+          <i className="ri-logout-box-line"></i> Keluar
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Sidnav;

@@ -7,8 +7,12 @@ import Kategoridata from "../componen 2/Kategoridata";
 import Tagihan from "./componen/Tagihan"
 import Jenistagihan from "./componen/Jenistagihan";
 import Tambahdata from "./componen/Tambahdata";
+import Tambahkategori from "../componen 2/Tambahkategori";
 import Editdata from "./componen/Editdata";
+import Editkategori from "../componen 2/Editkategori";
 import Rekaptagihan from "./componen/Rekaptagihan"
+import Masterdata from "../componen 2/Masterdata";
+import Kelas from "../componen 2/Kelas";
 import Sidnav from "./componen/Sidnav";
 
 function App() {
@@ -22,7 +26,11 @@ function App() {
       <Route path="/Jenistagihan" element={<Jenistagihan />} />
       <Route path="/Rekaptagihan" element={<Rekaptagihan />} />
       <Route path="/tambahdata" element={<Tambahdata />} />
+      <Route path="/tambahkategori" element={<Tambahkategori />} />
+      <Route path="/Kelas" element={<Kelas />} />
+      <Route path="/Masterdata" element={<Masterdata />} />
       <Route path="/edit/:id" element={<Editdata />} />
+      <Route path="/editkategori/:id" element={<Editkategori />} />
     </Routes>
   );
 }
