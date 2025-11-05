@@ -130,7 +130,7 @@
       "jenis": "SPP Bulanan",
       "jumlah": 250000,
       "tanggal": "2025-11-05",
-      "status": false
+      "status": true
     }
   ],
   "jenis": [
@@ -173,6 +173,22 @@
       "nama": "TU"
     }
   ],
-  "kategoridata": [],
-  "kelas": []
+  "kategoridata": [
+    {
+      "id": "9214",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawa2222@gmail.com",
+      "kategori": "Siswa",
+      "jabatan": "X TKJ",
+      "tanggal": "2025-11-05"
+    }
+  ],
+  "kelas": [
+    {
+      "id": "0c7b",
+      "nama": "Narendra sakti widhitama",
+      "kelas": "X",
+      "jurusan": "TKJ"
+    }
+  ]
 }

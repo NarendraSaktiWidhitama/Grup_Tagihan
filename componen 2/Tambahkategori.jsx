@@ -6,33 +6,21 @@ import Swal from "sweetalert2";
 
 function Tambahkategori() {
   const navigate = useNavigate();
-  const [kategoriList, setKategoriList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     nama: "",
     email: "",
-    jabatan: "",
     kategori: "",
+    jabatan: "",
     tanggal: "",
   });
 
-  useEffect(() => {
-    const fetchKategori = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/kategoridata");
-        setKategoriList(res.data);
-      } catch (error) {
-        console.error("Gagal memuat kategori:", error);
-      } finally {
-        setLoading(false);
-        setTimeout(() => setShowContent(true), 50);
-      }
-    };
+  const [kelas, setKelas] = useState("");
+  const [jurusan, setJurusan] = useState("");
 
-    fetchKategori();
-  }, []);
+  const daftarKelas = ["X", "XI", "XII"];
+  const daftarJurusan = ["TKJ", "TSM", "DPB", "AKL"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,8 +29,20 @@ function Tambahkategori() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let finalJabatan = form.jabatan;
+
+    if (form.kategori === "Siswa") {
+      if (!kelas || !jurusan)
+        return Swal.fire("Oops!", "Kelas & Jurusan harus dipilih!", "warning");
+      finalJabatan = `${kelas} ${jurusan}`;
+    }
+
     try {
-      await axios.post("http://localhost:5000/kategoridata", form);
+      await axios.post("http://localhost:5000/kategoridata", {
+        ...form,
+        jabatan: finalJabatan,
+      });
 
       await Swal.fire({
         icon: "success",
@@ -62,16 +62,6 @@ function Tambahkategori() {
       });
     }
   };
-
-  if (loading && !showContent)
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-          <p className="mt-4 text-xl font-medium text-gray-700">Memuat...</p>
-        </div>
-      </div>
-    );
 
   return (
     <div className="flex min-h-screen bg-emerald-400">
@@ -102,29 +92,62 @@ function Tambahkategori() {
               required
             />
 
-            <input
-              name="jabatan"
-              value={form.jabatan}
+            {/* PILIH KATEGORI */}
+            <select
+              name="kategori"
+              value={form.kategori}
               onChange={handleChange}
-              placeholder="Jabatan (misal: X TKJ / Guru / TU)"
               className="w-full border px-4 py-2 rounded"
               required
-            />
+            >
+              <option value="">Pilih Kategori</option>
+              <option value="Siswa">Siswa</option>
+              <option value="Guru">Guru</option>
+              <option value="Karyawan">Karyawan</option>
+            </select>
 
-            <select
-  name="kategori"
-  value={form.kategori}
-  onChange={handleChange}
-  className="w-full border px-4 py-2 rounded"
-  required
->
-  <option value="">-- Pilih Kategori --</option>
-  <option value="Siswa">Siswa</option>
-  <option value="Guru">Guru</option>
-  <option value="Karyawan">Karyawan</option>
-</select>
+            {/* JIKA SISWA → PILIH KELAS & JURUSAN */}
+            {form.kategori === "Siswa" && (
+              <>
+                <select
+                  value={kelas}
+                  onChange={(e) => setKelas(e.target.value)}
+                  className="w-full border px-4 py-2 rounded"
+                >
+                  <option value="">Pilih Kelas</option>
+                  {daftarKelas.map((k) => (
+                    <option key={k}>{k}</option>
+                  ))}
+                </select>
 
+                <select
+                  value={jurusan}
+                  onChange={(e) => setJurusan(e.target.value)}
+                  className="w-full border px-4 py-2 rounded"
+                >
+                  <option value="">Pilih Jurusan</option>
+                  {daftarJurusan.map((j) => (
+                    <option key={j}>{j}</option>
+                  ))}
+                </select>
+              </>
+            )}
 
+            {/* JIKA GURU ATAU KARYAWAN → INPUT JABATAN */}
+            {(form.kategori === "Guru" || form.kategori === "Karyawan") && (
+              <input
+                name="jabatan"
+                value={form.jabatan}
+                onChange={handleChange}
+                placeholder={
+                  form.kategori === "Guru"
+                    ? "Pilih guru"
+                    : "TU / Satpam / Bendahara"
+                }
+                className="w-full border px-4 py-2 rounded"
+                required
+              />
+            )}
 
             <input
               name="tanggal"

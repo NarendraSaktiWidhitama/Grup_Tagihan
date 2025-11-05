@@ -110,8 +110,8 @@ function Kategoridata() {
                 <th className="p-2">No</th>
                 <th className="p-2">Nama</th>
                 <th className="p-2">Email</th>
-                <th className="p-2">Jabatan</th>
                 <th className="p-2">Kategori</th>
+                <th className="p-2">Jabatan/kelas</th>
                 <th className="p-2">Tanggal</th>
                 <th className="p-2 text-center">Aksi</th>
               </tr>
@@ -123,8 +123,8 @@ function Kategoridata() {
                   <td className="p-2">{i + 1}</td>
                   <td className="p-2">{d.nama}</td>
                   <td className="p-2">{d.email}</td>
-                  <td className="p-2">{d.jabatan}</td>
                   <td className="p-2">{d.kategori}</td>
+                  <td className="p-2">{d.jabatan}</td>
                   <td className="p-2">{d.tanggal}</td>
 
                   <td className="p-2 text-center">
