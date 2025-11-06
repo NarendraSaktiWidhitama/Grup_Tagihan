@@ -131,6 +131,16 @@
       "jumlah": 250000,
       "tanggal": "2025-11-05",
       "status": true
+    },
+    {
+      "id": "685c",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "jurusan": "PPLG",
+      "jenis": "Uang Ujian",
+      "jumlah": 1200000,
+      "tanggal": "2025-11-06",
+      "status": false
     }
   ],
   "jenis": [
@@ -175,12 +185,60 @@
   ],
   "kategoridata": [
     {
-      "id": "9214",
+      "id": "3759",
       "nama": "Narendra sakti widhitama",
-      "email": "yurayurawa2222@gmail.com",
+      "email": "yurayurawaafafafaf@gmail.com",
       "kategori": "Siswa",
       "jabatan": "X TKJ",
-      "tanggal": "2025-11-05"
+      "tanggal": "2025-11-01"
+    },
+    {
+      "id": "df79",
+      "nama": "Bibir gajah",
+      "email": "oranghidup@gmail.com",
+      "kategori": "Guru",
+      "jabatan": "Guru informatika",
+      "tanggal": "2025-11-01"
+    },
+    {
+      "id": "664f",
+      "nama": "Arif riansyah",
+      "email": "arif@gmail.com",
+      "kategori": "Karyawan",
+      "jabatan": "Bendahara",
+      "tanggal": "2025-11-02"
+    },
+    {
+      "id": "fd94",
+      "nama": "Andi widiansyah",
+      "email": "andi@gmail.com",
+      "kategori": "Siswa",
+      "jabatan": "X TSM",
+      "tanggal": "2025-11-03"
+    },
+    {
+      "id": "e2bc",
+      "nama": "Reza kevala",
+      "email": "reza@gmail.com",
+      "kategori": "Siswa",
+      "jabatan": "XII TKJ",
+      "tanggal": "2025-11-03"
+    },
+    {
+      "id": "c997",
+      "nama": "Andi wijianto",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "kategori": "Guru",
+      "jabatan": "Guru bahasa jepang",
+      "tanggal": "2025-11-03"
+    },
+    {
+      "id": "5430",
+      "nama": "Ahmad sahroni",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "kategori": "Karyawan",
+      "jabatan": "TU",
+      "tanggal": "2025-11-01"
     }
   ],
   "kelas": [

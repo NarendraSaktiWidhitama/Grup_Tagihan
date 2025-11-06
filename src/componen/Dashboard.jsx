@@ -8,229 +8,191 @@ const cardAnimationClasses = (index, show) =>
   } ${show ? `delay-${index * 150}` : "delay-0"}`;
 
 function Dashboard() {
-  const [data, setData] = useState([]);
-  const [, setJenis] = useState([]);
+  const [kategoridata, setKategoridata] = useState([]);
+  const [tagihan, setTagihan] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
-useEffect(() => {
-  const load = async () => {
-    try {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-      const [r1, r2] = await Promise.all([
-        axios.get("http://localhost:5000/data"),
-        axios.get("http://localhost:5000/jenis"),
-      ]);
+        const [resKategoridata, resTagihan] = await Promise.all([
+          axios.get("http://localhost:5000/kategoridata"),
+          axios.get("http://localhost:5000/data"),
+        ]);
 
-      const reversedData = [...r1.data].reverse();
-
-      setData(reversedData);
-      setJenis(r2.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-      setTimeout(() => {
-        setShowContent(true);
-      }, 50);
-    }
-  };
-  load();
-}, []);
-
+        setKategoridata(resKategoridata.data);
+        setTagihan(resTagihan.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+        setTimeout(() => setShowContent(true), 50);
+      }
+    };
+    load();
+  }, []);
 
   if (loading && !showContent)
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex flex-col items-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
-          <p className="mt-4 text-xl font-medium text-gray-700">
-            Memuat dashboard
-          </p>
+          <p className="mt-4 text-xl font-medium text-gray-700">Memuat dashboard</p>
         </div>
       </div>
     );
 
-  const totalTagihan = data.length;
-  const sudahBayarData = data.filter((d) => d.status === true);
-  const belumBayarData = data.filter((d) => !d.status);
-  const sudahBayar = sudahBayarData.length;
-  const belumBayar = belumBayarData.length;
+  // Hitung card secara dinamis dari data kategoridata dengan urutan tetap
+const kategoriOrder = ["Siswa", "Guru", "Karyawan"];
+const kategoriCards = kategoriOrder.map(kat => {
+  let bgColor = kat === "Siswa" ? "bg-green-500" :
+                kat === "Guru" ? "bg-blue-500" :
+                "bg-yellow-500";
+  let icon = kat === "Siswa" ? "ri-user-line" :
+             kat === "Guru" ? "ri-team-line" :
+             "ri-user-settings-line";
+  return {
+    title: `Total ${kat}`,
+    value: kategoridata.filter(d => d.kategori === kat).length,
+    bgColor,
+    icon,
+  };
+});
 
-  const totalNominal = data.reduce((s, it) => s + (it.jumlah || 0), 0);
-  const totalSudahLunas = sudahBayarData.reduce(
-    (s, it) => s + (it.jumlah || 0),
-    0
-  );
-  const totalBelumLunas = belumBayarData.reduce(
-    (s, it) => s + (it.jumlah || 0),
-    0
-  );
 
-  const dashboardCards = [
-    {
-      title: "Total Tagihan",
-      value: totalTagihan,
-      bgColor: "bg-blue-500",
-      icon: "ri-file-list-3-line",
-    },
-    {
-      title: "Sudah Lunas",
-      value: sudahBayar,
-      bgColor: "bg-green-500",
-      icon: "ri-checkbox-circle-line",
-    },
-    {
-      title: "Belum Lunas",
-      value: belumBayar,
-      bgColor: "bg-red-600",
-      icon: "ri-close-circle-line",
-    },
-    {
-      title: "Total Nominal",
-      value: `Rp ${totalNominal.toLocaleString()}`,
-      bgColor: "bg-gradient-to-r from-yellow-400 to-amber-500",
-      icon: "ri-wallet-3-line",
-    },
-    {
-      title: "Nominal Sudah Lunas",
-      value: `Rp ${totalSudahLunas.toLocaleString()}`,
-      bgColor: "bg-gradient-to-r from-green-400 to-emerald-600",
-      icon: "ri-bank-card-line",
-    },
-    {
-      title: "Nominal Belum Lunas",
-      value: `Rp ${totalBelumLunas.toLocaleString()}`,
-      bgColor: "bg-gradient-to-r from-red-400 to-rose-600",
-      icon: "ri-error-warning-line",
-    },
+  // Card tagihan
+  const totalTagihan = tagihan.length;
+  const sudahBayar = tagihan.filter((d) => d.status === true).length;
+  const belumBayar = tagihan.filter((d) => !d.status).length;
+
+  const tagihanCards = [
+    { title: "Total Tagihan", value: totalTagihan, bgColor: "bg-purple-500", icon: "ri-file-list-3-line" },
+    { title: "Sudah Lunas", value: sudahBayar, bgColor: "bg-green-600", icon: "ri-checkbox-circle-line" },
+    { title: "Belum Lunas", value: belumBayar, bgColor: "bg-red-600", icon: "ri-close-circle-line" },
   ];
+
+  // Data per kategori untuk tabel
+  const siswaData = kategoridata.filter(d => d.kategori === "Siswa");
+  const guruData = kategoridata.filter(d => d.kategori === "Guru");
+  const karyawanData = kategoridata.filter(d => d.kategori === "Karyawan");
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
-      <div
-        className={`flex-1 p-8 ml-56 transition-all ${
-          showContent
-            ? "opacity-100 translate-y-0 duration-1000"
-            : "opacity-0 translate-y-4"
-        }`}
-      >
+      <div className={`flex-1 p-8 ml-56 transition-all ${showContent ? "opacity-100 translate-y-0 duration-1000" : "opacity-0 translate-y-4"}`}>
         <h1 className="text-3xl font-bold text-emerald-700 mb-6 flex items-center gap-2">
           <i className="ri-dashboard-line text-emerald-600 text-3xl"></i>
-          Dashboard Keuangan
+          Dashboard Sekolah
         </h1>
 
+        {/* Cards Kategori */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-6 gap-y-4">
-          {dashboardCards.slice(0, 3).map((card, index) => (
-            <div
-              key={index}
-              className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(
-                index,
-                showContent
-              )}`}
-            >
+          {kategoriCards.map((card, index) => (
+            <div key={index} className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(index, showContent)}`}>
               <div className="flex justify-center mb-2">
                 <i className={`${card.icon} text-white text-4xl`}></i>
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                {card.title}
-              </h3>
+              <h3 className="text-lg font-semibold text-white">{card.title}</h3>
               <p className="text-2xl font-bold text-white">{card.value}</p>
             </div>
           ))}
         </div>
 
+        {/* Cards Tagihan */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
-          {dashboardCards.slice(3).map((card, index) => (
-            <div
-              key={index + 3}
-              className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(
-                index + 3,
-                showContent
-              )}`}
-            >
+          {tagihanCards.map((card, index) => (
+            <div key={index} className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(index + 3, showContent)}`}>
               <div className="flex justify-center mb-2">
                 <i className={`${card.icon} text-white text-4xl`}></i>
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                {card.title}
-              </h3>
+              <h3 className="text-lg font-semibold text-white">{card.title}</h3>
               <p className="text-2xl font-bold text-white">{card.value}</p>
             </div>
           ))}
         </div>
 
-        <div
-          className={`bg-white p-6 rounded-lg shadow-xl transition-all duration-700 ease-out ${
-            showContent
-              ? "opacity-100 translate-y-0 delay-[600ms]"
-              : "opacity-0 translate-y-4 delay-0"
-          }`}
-        >
-          <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-            <i className="ri-file-list-3-line text-emerald-600 text-xl"></i>
-            Daftar Tagihan Terbaru
-          </h2>
+        {/* Tabel Siswa */}
+        <Table title="Tabel Siswa" data={siswaData} headerColor="from-green-300 to-green-400" />
+        {/* Tabel Guru */}
+        <Table title="Tabel Guru" data={guruData} headerColor="from-blue-300 to-blue-400" />
+        {/* Tabel Karyawan */}
+        <Table title="Tabel Karyawan" data={karyawanData} headerColor="from-yellow-300 to-yellow-400" />
+        {/* Tabel Tagihan */}
+        <Table title="Tabel Tagihan" data={tagihan} tagihanTable headerColor="from-emerald-300 to-emerald-400" />
+      </div>
+    </div>
+  );
+}
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-center border-collapse text-base">
-              <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
-                <tr>
-                  <th className="py-2 px-3 w-[30px]">No</th>
-                  <th className="py-2 px-3 w-[160px] text-left">Nama</th>
-                  <th className="py-2 px-3 w-[130px] text-left">Jenis</th>
-                  <th className="py-2 px-3 w-[110px] text-left">Jumlah</th>
-                  <th className="py-2 px-3 w-[110px]">Tanggal</th>
-                  <th className="py-2 px-3 w-[90px]">Status</th>
+// Komponen tabel
+function Table({ title, data, tagihanTable, headerColor }) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-xl mb-8 transition-all duration-700 ease-out">
+      <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+        <i className="ri-file-list-3-line text-emerald-600 text-xl"></i>
+        {title}
+      </h2>
+      <div className="overflow-x-auto">
+        <table className="w-full text-center border-collapse text-base">
+          <thead className={`bg-gradient-to-r ${headerColor}`}>
+            <tr>
+              <th className="py-2 px-3 w-[30px]">No</th>
+              <th className="py-2 px-3 text-left">Nama</th>
+              {tagihanTable ? (
+                <>
+                  <th className="py-2 px-3 text-left">Jenis</th>
+                  <th className="py-2 px-3 text-left">Jumlah</th>
+                  <th className="py-2 px-3">Tanggal</th>
+                  <th className="py-2 px-3">Status</th>
+                </>
+              ) : (
+                <>
+                  <th className="py-2 px-3 text-left">Email</th>
+                  <th className="py-2 px-3 text-left">Jabatan/Kelas</th>
+                  <th className="py-2 px-3">Tanggal</th>
+                </>
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {data.length > 0 ? (
+              data.map((d, i) => (
+                <tr key={d.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="py-2 px-3">{i + 1}</td>
+                  <td className="py-2 px-3 text-left truncate">{d.nama}</td>
+                  {tagihanTable ? (
+                    <>
+                      <td className="py-2 px-3 text-left">{d.jenis}</td>
+                      <td className="py-2 px-3 text-left">Rp {d.jumlah?.toLocaleString()}</td>
+                      <td className="py-2 px-3 text-center">{d.tanggal ? new Date(d.tanggal).toLocaleDateString("id-ID") : "-"}</td>
+                      <td className="py-2 px-3">
+                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${d.status ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                          {d.status ? "Lunas" : "Belum Lunas"}
+                        </span>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="py-2 px-3 text-left">{d.email}</td>
+                      <td className="py-2 px-3 text-left">{d.jabatan || d.kelas || "-"}</td>
+                      <td className="py-2 px-3 text-center">{d.tanggal ? new Date(d.tanggal).toLocaleDateString("id-ID") : "-"}</td>
+                    </>
+                  )}
                 </tr>
-              </thead>
-              <tbody>
-                {data.map((d, i) => (
-                  <tr
-                    key={d.id}
-                    className="hover:bg-emerald-50 transition-colors"
-                  >
-                    <td className="py-2 px-3">{i + 1}</td>
-                    <td className="py-2 px-3 text-left truncate">{d.nama}</td>
-                    <td className="py-2 px-3 text-left">{d.jenis}</td>
-                    <td className="py-2 px-3 text-left">
-                      Rp {d.jumlah?.toLocaleString()}
-                    </td>
-                    <td className="py-2 px-3 text-center">
-                      {d.tanggal
-                        ? new Date(d.tanggal).toLocaleDateString("id-ID")
-                        : "-"}
-                    </td>
-                    <td className="py-2 px-3">
-                      <span
-                        className={`px-2 py-0.5 rounded text-xs font-semibold ${
-                          d.status
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
-                        }`}
-                      >
-                        {d.status ? "Lunas" : "Belum Lunas"}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-                {data.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan="6"
-                      className="p-4 text-gray-500 text-center"
-                    >
-                      Tidak ada data tagihan.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={tagihanTable ? 6 : 4} className="p-4 text-gray-500 text-center">
+                  Tidak ada data.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
