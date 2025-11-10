@@ -116,7 +116,7 @@ function Jenistagihan() {
     );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 ${mainContentAnimationClass}`}>
         <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6 shadow-md flex justify-between items-center">
@@ -141,7 +141,7 @@ function Jenistagihan() {
             Daftar Jenis Tagihan
           </h2>
           <table className="w-full text-center border-collapse">
-            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
+            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-300">
               <tr>
                 <th className="p-3">No</th>
                 <th className="p-3">Nama Jenis</th>

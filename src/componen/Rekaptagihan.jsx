@@ -42,7 +42,7 @@ function Rekaptagihan() {
   });
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidnav />
       <div className="flex-1 p-8 ml-56 overflow-x-auto">
         <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
@@ -67,7 +67,7 @@ function Rekaptagihan() {
 
         <div className="bg-white p-5 rounded-lg shadow-xl min-w-[900px]">
           <table className="w-full text-[15px] border-collapse">
-            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
+            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-300">
               <tr>
                 <th className="py-2 px-3 w-[40px]">No</th>
                 <th className="py-2 px-3 w-[180px]">Nama</th>

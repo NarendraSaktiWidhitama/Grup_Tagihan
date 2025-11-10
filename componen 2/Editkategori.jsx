@@ -79,7 +79,10 @@ function Editkategori() {
   if (loading && !showContent)
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+          <p className="mt-4 text-xl font-medium text-gray-700">Memuat halaman</p>
+        </div>
       </div>
     );
 
@@ -88,10 +91,10 @@ function Editkategori() {
     : "opacity-0 translate-y-4";
 
   return (
-    <div className="flex min-h-screen bg-emerald-400">
+    <div className="flex min-h-screen bg-gray-200">
       <Sidnav />
-      <div className={`flex-1 p-8 ml-56 ${baseAnimation}`}>
-        <div className="bg-white p-6 rounded-lg shadow-xl max-w-lg">
+      <div className={`flex-1 p-8 ml-120 m-20 ${baseAnimation}`}>
+        <div className="bg-emerald-100 p-6 rounded-lg shadow-xl max-w-lg">
           <h2 className="text-2xl font-semibold mb-6 text-gray-700">
             Edit Kategori Data
           </h2>

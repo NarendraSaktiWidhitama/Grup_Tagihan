@@ -6,7 +6,8 @@ import Swal from "sweetalert2";
 
 function Tambahkategori() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   const [form, setForm] = useState({
     nama: "",
@@ -21,6 +22,15 @@ function Tambahkategori() {
 
   const daftarKelas = ["X", "XI", "XII"];
   const daftarJurusan = ["TKJ", "TSM", "DPB", "AKL"];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+      setShowContent(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,11 +73,25 @@ function Tambahkategori() {
     }
   };
 
+  if (loading && !showContent)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+          <p className="mt-4 text-xl font-medium text-gray-700">Memuat halaman...</p>
+        </div>
+      </div>
+    );
+
+  const baseAnimation = showContent
+    ? "opacity-100 translate-y-0 transition-all duration-700 ease-out"
+    : "opacity-0 translate-y-4";
+
   return (
-    <div className="flex min-h-screen bg-emerald-400">
+    <div className="flex min-h-screen bg-gray-200">
       <Sidnav />
-      <div className="flex-1 p-8 ml-56 transition-all duration-700 ease-out">
-        <div className="bg-white p-6 rounded-lg shadow-xl max-w-lg transition-all duration-700">
+      <div className={`flex-1 p-8 ml-120 m-20 ${baseAnimation}`}>
+        <div className="bg-emerald-100 p-6 rounded-lg shadow-xl max-w-lg transition-all duration-700">
           <h2 className="text-2xl font-semibold mb-6 text-gray-700">
             Tambah Data Kategori
           </h2>
@@ -92,7 +116,6 @@ function Tambahkategori() {
               required
             />
 
-            {/* PILIH KATEGORI */}
             <select
               name="kategori"
               value={form.kategori}
@@ -106,7 +129,6 @@ function Tambahkategori() {
               <option value="Karyawan">Karyawan</option>
             </select>
 
-            {/* JIKA SISWA → PILIH KELAS & JURUSAN */}
             {form.kategori === "Siswa" && (
               <>
                 <select
@@ -133,7 +155,6 @@ function Tambahkategori() {
               </>
             )}
 
-            {/* JIKA GURU ATAU KARYAWAN → INPUT JABATAN */}
             {(form.kategori === "Guru" || form.kategori === "Karyawan") && (
               <input
                 name="jabatan"

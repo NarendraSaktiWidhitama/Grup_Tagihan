@@ -14,27 +14,28 @@ function Dashboard() {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 500));
+  const load = async () => {
+    try {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-        const [resKategoridata, resTagihan] = await Promise.all([
-          axios.get("http://localhost:5000/kategoridata"),
-          axios.get("http://localhost:5000/data"),
-        ]);
+      const [resKategoridata, resTagihan] = await Promise.all([
+        axios.get("http://localhost:5000/kategoridata"),
+        axios.get("http://localhost:5000/data"),
+      ]);
 
-        setKategoridata(resKategoridata.data);
-        setTagihan(resTagihan.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-        setTimeout(() => setShowContent(true), 50);
-      }
-    };
-    load();
-  }, []);
+      setKategoridata(resKategoridata.data.reverse());
+      setTagihan(resTagihan.data.reverse());
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setTimeout(() => setShowContent(true), 50);
+    }
+  };
+  load();
+}, []);
 
   if (loading && !showContent)
     return (
@@ -46,7 +47,6 @@ function Dashboard() {
       </div>
     );
 
-  // Hitung card secara dinamis dari data kategoridata dengan urutan tetap
 const kategoriOrder = ["Siswa", "Guru", "Karyawan"];
 const kategoriCards = kategoriOrder.map(kat => {
   let bgColor = kat === "Siswa" ? "bg-green-500" :
@@ -64,18 +64,31 @@ const kategoriCards = kategoriOrder.map(kat => {
 });
 
 
-  // Card tagihan
-  const totalTagihan = tagihan.length;
-  const sudahBayar = tagihan.filter((d) => d.status === true).length;
-  const belumBayar = tagihan.filter((d) => !d.status).length;
+const totalTagihan = tagihan.reduce((sum, item) => sum + (item.jumlah || 0), 0);
+const sudahBayar = tagihan.filter((d) => d.status === true).length;
+const belumBayar = tagihan.filter((d) => !d.status).length;
 
   const tagihanCards = [
-    { title: "Total Tagihan", value: totalTagihan, bgColor: "bg-purple-500", icon: "ri-file-list-3-line" },
-    { title: "Sudah Lunas", value: sudahBayar, bgColor: "bg-green-600", icon: "ri-checkbox-circle-line" },
-    { title: "Belum Lunas", value: belumBayar, bgColor: "bg-red-600", icon: "ri-close-circle-line" },
-  ];
+  { 
+    title: "Total Tagihan", 
+    value: `Rp ${totalTagihan.toLocaleString("id-ID")}`, 
+    bgColor: "bg-purple-500", 
+    icon: "ri-file-list-3-line" 
+  },
+  { 
+    title: "Sudah Lunas", 
+    value: sudahBayar, 
+    bgColor: "bg-green-600", 
+    icon: "ri-checkbox-circle-line" 
+  },
+  { 
+    title: "Belum Lunas", 
+    value: belumBayar, 
+    bgColor: "bg-red-600", 
+    icon: "ri-close-circle-line" 
+  },
+];
 
-  // Data per kategori untuk tabel
   const siswaData = kategoridata.filter(d => d.kategori === "Siswa");
   const guruData = kategoridata.filter(d => d.kategori === "Guru");
   const karyawanData = kategoridata.filter(d => d.kategori === "Karyawan");
@@ -84,12 +97,11 @@ const kategoriCards = kategoriOrder.map(kat => {
     <div className="flex min-h-screen bg-gray-50">
       <Sidnav />
       <div className={`flex-1 p-8 ml-56 transition-all ${showContent ? "opacity-100 translate-y-0 duration-1000" : "opacity-0 translate-y-4"}`}>
-        <h1 className="text-3xl font-bold text-emerald-700 mb-6 flex items-center gap-2">
-          <i className="ri-dashboard-line text-emerald-600 text-3xl"></i>
+        <h1 className="text-3xl font-bold mb-6 flex items-center gap-2">
+          <i className="ri-dashboard-line text-3xl"></i>
           Dashboard Sekolah
         </h1>
 
-        {/* Cards Kategori */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-6 gap-y-4">
           {kategoriCards.map((card, index) => (
             <div key={index} className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(index, showContent)}`}>
@@ -102,7 +114,6 @@ const kategoriCards = kategoriOrder.map(kat => {
           ))}
         </div>
 
-        {/* Cards Tagihan */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
           {tagihanCards.map((card, index) => (
             <div key={index} className={`${card.bgColor} p-6 rounded-xl shadow-lg text-center hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ${cardAnimationClasses(index + 3, showContent)}`}>
@@ -115,20 +126,15 @@ const kategoriCards = kategoriOrder.map(kat => {
           ))}
         </div>
 
-        {/* Tabel Siswa */}
         <Table title="Tabel Siswa" data={siswaData} headerColor="from-green-300 to-green-400" />
-        {/* Tabel Guru */}
         <Table title="Tabel Guru" data={guruData} headerColor="from-blue-300 to-blue-400" />
-        {/* Tabel Karyawan */}
         <Table title="Tabel Karyawan" data={karyawanData} headerColor="from-yellow-300 to-yellow-400" />
-        {/* Tabel Tagihan */}
         <Table title="Tabel Tagihan" data={tagihan} tagihanTable headerColor="from-emerald-300 to-emerald-400" />
       </div>
     </div>
   );
 }
 
-// Komponen tabel
 function Table({ title, data, tagihanTable, headerColor }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-xl mb-8 transition-all duration-700 ease-out">

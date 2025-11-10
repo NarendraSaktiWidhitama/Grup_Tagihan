@@ -6,13 +6,25 @@ function Masterdata() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
+  // 🔹 Tambahan state loading
+  const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = await axios.get("http://localhost:5000/kategoridata");
-        setData(res.data);
+
+        // Biar data terbaru tampil di atas
+        setData(res.data.reverse());
       } catch (error) {
         console.log("Gagal mengambil data:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+          setShowContent(true);
+        }, 800);
       }
     };
     fetchData();
@@ -25,16 +37,29 @@ function Masterdata() {
       .includes(search.toLowerCase())
   );
 
+  if (loading && !showContent)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+          <p className="mt-4 text-xl font-medium text-gray-700">
+            Memuat master data
+          </p>
+        </div>
+      </div>
+    );
+
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
       <Sidnav />
 
-      {/* Konten */}
       <div className="flex-1 p-8 ml-56">
-        <h1 className="text-2xl font-bold mb-5">Master Data</h1>
+        <div className="flex justify-between items-center bg-gradient-to-r from-emerald-300 to-emerald-400 px-5 py-4 rounded-md shadow mb-6">
+          <h1 className="text-2xl font-semibold flex items-center gap-2">
+            <span>📋</span> Master Data
+          </h1>
+        </div>
 
-        {/* Search */}
         <div className="mb-5">
           <input
             type="text"
@@ -45,10 +70,9 @@ function Masterdata() {
           />
         </div>
 
-        {/* Tabel */}
         <div className="bg-white rounded shadow p-5 overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
-            <thead className="bg-emerald-200">
+          <table className="w-full border-collapse text-base">
+            <thead className="bg-emerald-300">
               <tr>
                 <th className="p-2">No</th>
                 <th className="p-2">Nama</th>

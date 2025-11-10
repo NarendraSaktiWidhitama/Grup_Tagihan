@@ -11,33 +11,33 @@ function Tagihan() {
   const [showContent, setShowContent] = useState(false);
   const navigate = useNavigate();
 
-const fetchData = async (filterJenis = "") => {
-  if (!loading) setLoading(true);
-  try {
-    if (!showContent) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+  const fetchData = async (filterJenis = "") => {
+    if (!loading) setLoading(true);
+    try {
+      if (!showContent) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+
+      const dataUrl = filterJenis
+        ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
+        : "http://localhost:5000/data";
+
+      const [r1, r2] = await Promise.all([
+        axios.get(dataUrl),
+        axios.get("http://localhost:5000/jenis"),
+      ]);
+
+      const reversedData = [...r1.data].reverse();
+
+      setData(reversedData);
+      setJenis(r2.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      if (!showContent) setTimeout(() => setShowContent(true), 50);
     }
-
-    const dataUrl = filterJenis
-      ? `http://localhost:5000/data?jenis=${encodeURIComponent(filterJenis)}`
-      : "http://localhost:5000/data";
-
-    const [r1, r2] = await Promise.all([
-      axios.get(dataUrl),
-      axios.get("http://localhost:5000/jenis"),
-    ]);
-
-    const reversedData = [...r1.data].reverse();
-
-    setData(reversedData);
-    setJenis(r2.data);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-    if (!showContent) setTimeout(() => setShowContent(true), 50);
-  }
-};
+  };
 
   useEffect(() => {
     fetchData();
@@ -138,9 +138,11 @@ const fetchData = async (filterJenis = "") => {
     : "opacity-0 translate-y-4";
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 overflow-x-hidden">
       <Sidnav />
-      <div className={`flex-1 p-8 ml-56 overflow-x-hidden ${baseAnimation}`}>
+      <div
+        className={`flex-1 p-8 lg:ml-56 transition-all overflow-x-hidden ${baseAnimation}`}
+      >
         <div className="bg-gradient-to-r from-emerald-300 to-emerald-400 p-4 rounded-lg mb-6">
           <div className="flex items-center gap-3">
             <i className="ri-file-list-3-fill text-3xl"></i>
@@ -172,103 +174,96 @@ const fetchData = async (filterJenis = "") => {
           </button>
         </div>
 
-        <div className="bg-white p-5 -ml-5 rounded-lg shadow-xl">
-          <table className="w-full text-[15px] border-collapse">
-            <thead className="bg-gradient-to-r from-emerald-300 to-emerald-400">
-              <tr>
-                <th className="py-2 px-3 w-[40px]">No</th>
-                <th className="py-2 px-3 w-[180px]">Nama</th>
-                <th className="py-2 px-3 w-[220px]">Email</th>
-                <th className="py-2 px-3 w-[130px]">Jenis</th>
-                <th className="py-2 px-3 w-[110px]">Jumlah</th>
-                <th className="py-2 px-3 w-[110px]">Tanggal</th>
-                <th className="py-2 px-3 w-[100px]">Status</th>
-                <th className="py-2 px-3 w-[160px]">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((d, i) => (
-                <tr
-                  key={d.id}
-                  className={`${
-                    d.status ? "bg-green-50" : "hover:bg-gray-50"
-                  }`}
-                >
-                  <td className="py-2 px-3 text-right">{i + 1}</td>
-
-<td className="py-2 px-3 text-left max-w-[180px] relative group">
-  <span className="truncate block">{d.nama}</span>
-  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
-                  bg-gray-800 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.nama}
-  </div>
-</td>
-
-<td className="py-2 px-3 text-left max-w-[200px] relative group">
-  <span className="truncate block">{d.email}</span>
-  <div className="absolute left-0 top-full -mt-4 ml-2 hidden group-hover:block 
-                  bg-blue-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.email}
-  </div>
-</td>
-
-<td className="py-2 px-3 text-center max-w-[150px] relative group">
-  <span className="truncate block">{d.jenis}</span>
-  <div className="absolute left-1/2 top-full -mt-4 ml-1 -translate-x-1/2 hidden group-hover:block 
-                  bg-green-700 text-white text-sm rounded-md px-2 py-1 shadow-lg
-                  whitespace-nowrap z-10">
-    {d.jenis}
-  </div>
-</td>
-                  <td className="py-2 px-3 text-right text-nowrap">
-                    Rp {d.jumlah?.toLocaleString()}
-                  </td>
-                  <td className="py-2 px-3 text-center text-nowrap">
-                    {d.tanggal
-                      ? new Date(d.tanggal).toLocaleDateString("id-ID")
-                      : "-"}
-                  </td>
-                  <td
-                    className={`py-2 px-3 text-center font-semibold text-nowrap ${
-                      d.status ? "text-green-600" : "text-red-500"
-                    }`}
-                  >
-                    {d.status ? "Lunas" : "Belum Lunas"}
-                  </td>
-                  <td className="py-2 px-3 flex justify-center gap-1">
-                    <button
-                      onClick={() => navigate(`/edit/${d.id}`)}
-                      className="p-1 text-lg hover:scale-125 transition"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      onClick={() => handleDelete(d)}
-                      className="p-1 text-lg hover:scale-125 transition"
-                    >
-                      🗑️
-                    </button>
-                    <button
-                      onClick={() => handleToggleStatus(d)}
-                      className="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded transition text-nowrap"
-                    >
-                      Ubah data
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {data.length === 0 && (
+        {/* 🧾 Bagian tabel yang sudah diperbaiki */}
+        <div className="bg-white p-5 rounded-lg shadow-xl overflow-hidden">
+          <div className="w-full overflow-x-auto md:overflow-x-hidden">
+            <table className="w-full text-[15px] border-collapse table-fixed">
+              <thead className="bg-gradient-to-r from-emerald-300 to-emerald-300">
                 <tr>
-                  <td colSpan="8" className="p-6 text-gray-500 text-center">
-                    Tidak ada data
-                  </td>
+                  <th className="py-2 px-3 w-[40px]">No</th>
+                  <th className="py-2 px-3 w-[160px]">Nama</th>
+                  <th className="py-2 px-3 w-[200px]">Email</th>
+                  <th className="py-2 px-3 w-[130px]">Jenis</th>
+                  <th className="py-2 px-3 w-[110px]">Jumlah</th>
+                  <th className="py-2 px-3 w-[110px]">Tanggal</th>
+                  <th className="py-2 px-3 w-[100px]">Status</th>
+                  <th className="py-2 px-3 w-[150px]">Aksi</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.map((d, i) => (
+                  <tr
+                    key={d.id}
+                    className={`${d.status ? "bg-green-50" : "hover:bg-gray-50"}`}
+                  >
+                    <td className="py-2 px-3 text-right">{i + 1}</td>
+                    <td
+                      className="py-2 px-3 truncate max-w-[150px]"
+                      title={d.nama}
+                    >
+                      {d.nama}
+                    </td>
+                    <td
+                      className="py-2 px-3 truncate max-w-[180px]"
+                      title={d.email}
+                    >
+                      {d.email}
+                    </td>
+                    <td
+                      className="py-2 px-3 text-center truncate max-w-[120px]"
+                      title={d.jenis}
+                    >
+                      {d.jenis}
+                    </td>
+                    <td className="py-2 px-3 text-right text-nowrap">
+                      Rp {d.jumlah?.toLocaleString()}
+                    </td>
+                    <td className="py-2 px-3 text-center text-nowrap">
+                      {d.tanggal
+                        ? new Date(d.tanggal).toLocaleDateString("id-ID")
+                        : "-"}
+                    </td>
+                    <td
+                      className={`py-2 px-3 text-center font-semibold text-nowrap ${
+                        d.status ? "text-green-600" : "text-red-500"
+                      }`}
+                    >
+                      {d.status ? "Lunas" : "Belum Lunas"}
+                    </td>
+                    <td className="py-2 px-3 flex justify-center gap-1">
+                      <button
+                        onClick={() => navigate(`/edit/${d.id}`)}
+                        className="p-1 text-lg hover:scale-125 transition"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        onClick={() => handleDelete(d)}
+                        className="p-1 text-lg hover:scale-125 transition"
+                      >
+                        🗑️
+                      </button>
+                      <button
+                        onClick={() => handleToggleStatus(d)}
+                        className="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded transition text-nowrap"
+                      >
+                        Ubah data
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {data.length === 0 && (
+                  <tr>
+                    <td colSpan="8" className="p-6 text-gray-500 text-center">
+                      Tidak ada data
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
+        {/* 🧾 End tabel */}
       </div>
     </div>
   );

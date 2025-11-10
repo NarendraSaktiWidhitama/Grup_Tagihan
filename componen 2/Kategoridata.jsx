@@ -8,8 +8,9 @@ function Kategoridata() {
   const [data, setData] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [filter, setFilter] = useState("Semua");
-  const [search, setSearch] = useState(""); // ← SEARCH
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const navigate = useNavigate();
 
   const loadData = async () => {
@@ -19,8 +20,13 @@ function Kategoridata() {
       const result = res.data.reverse();
       setData(result);
       setFiltered(result);
+    } catch (err) {
+      console.error("Gagal memuat data:", err);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        setShowContent(true);
+      }, 800);
     }
   };
 
@@ -28,7 +34,6 @@ function Kategoridata() {
     loadData();
   }, []);
 
-  // Filter kategori + search
   useEffect(() => {
     let result = data;
 
@@ -63,55 +68,70 @@ function Kategoridata() {
     Swal.fire("Berhasil", "Kategori dihapus", "success");
   };
 
+  if (loading && !showContent)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-t-4 border-emerald-500"></div>
+          <p className="mt-4 text-xl font-medium text-gray-700">
+            Memuat kategori data
+          </p>
+        </div>
+      </div>
+    );
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidnav />
 
       <div className="flex-1 p-8 ml-56 transition-all">
-        <h1 className="text-2xl font-bold mb-6">
-          <i className="ri-folder-2-fill mr-2"></i> Kategori Data
-        </h1>
-
-        <div className="flex justify-between mb-4 items-center">
-
-          {/* FILTER SELECT */}
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="border px-3 py-2 rounded bg-white shadow"
-          >
-            <option>Semua</option>
-            <option>Siswa</option>
-            <option>Guru</option>
-            <option>Karyawan</option>
-          </select>
-
-          {/* SEARCH */}
-          <input
-            type="text"
-            placeholder="Cari nama"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="border px-4 py-2 rounded shadow w-64"
-          />
-
-          <button
-            onClick={() => navigate("/tambahkategori")}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            + Tambah Kategori
-          </button>
+        <div className="flex justify-between items-center bg-gradient-to-r from-emerald-300 to-emerald-400 px-5 py-4 rounded-md shadow mb-6">
+          <h1 className="text-2xl font-semibold flex items-center gap-2">
+            <i className="ri-folder-2-fill"></i> Kategori Data
+          </h1>
         </div>
+
+        <div className="flex justify-between items-center mb-4">
+  {/* Kiri: filter + search */}
+  <div className="flex items-center gap-3">
+    <select
+      value={filter}
+      onChange={(e) => setFilter(e.target.value)}
+      className="border px-3 py-2 rounded bg-white shadow"
+    >
+      <option>Semua</option>
+      <option>Siswa</option>
+      <option>Guru</option>
+      <option>Karyawan</option>
+    </select>
+
+    <input
+      type="text"
+      placeholder="Cari nama"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="border px-4 py-2 rounded shadow w-64"
+    />
+  </div>
+
+  {/* Kanan: tombol tambah */}
+  <button
+    onClick={() => navigate("/tambahkategori")}
+    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+  >
+    + Tambah Kategori
+  </button>
+</div>
 
         <div className="bg-white shadow rounded p-5">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-blue-200">
+            <thead className="bg-emerald-300">
               <tr>
                 <th className="p-2">No</th>
                 <th className="p-2">Nama</th>
                 <th className="p-2">Email</th>
                 <th className="p-2">Kategori</th>
-                <th className="p-2">Jabatan/kelas</th>
+                <th className="p-2">Jabatan/Kelas</th>
                 <th className="p-2">Tanggal</th>
                 <th className="p-2 text-center">Aksi</th>
               </tr>
@@ -126,7 +146,6 @@ function Kategoridata() {
                   <td className="p-2">{d.kategori}</td>
                   <td className="p-2">{d.jabatan}</td>
                   <td className="p-2">{d.tanggal}</td>
-
                   <td className="p-2 text-center">
                     <button
                       onClick={() => navigate(`/editkategori/${d.id}`)}
@@ -147,7 +166,6 @@ function Kategoridata() {
                 </tr>
               )}
             </tbody>
-
           </table>
         </div>
       </div>

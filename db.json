@@ -133,13 +133,13 @@
       "status": true
     },
     {
-      "id": "685c",
+      "id": "21a9",
       "nama": "Narendra sakti widhitama",
       "email": "yurayurawaafafafaf@gmail.com",
       "jurusan": "PPLG",
-      "jenis": "Uang Ujian",
-      "jumlah": 1200000,
-      "tanggal": "2025-11-06",
+      "jenis": "SPP Bulanan",
+      "jumlah": 250000,
+      "tanggal": "2025-11-10",
       "status": false
     }
   ],
@@ -239,6 +239,30 @@
       "kategori": "Karyawan",
       "jabatan": "TU",
       "tanggal": "2025-11-01"
+    },
+    {
+      "id": "cae1",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "kategori": "Siswa",
+      "jabatan": "X TKJ",
+      "tanggal": "2025-11-10"
+    },
+    {
+      "id": "a3ab",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawaafafafaf@gmail.com",
+      "kategori": "Siswa",
+      "jabatan": "X TKJ",
+      "tanggal": "2025-11-10"
+    },
+    {
+      "id": "d583",
+      "nama": "Narendra sakti widhitama",
+      "email": "yurayurawa2222@gmail.com",
+      "kategori": "Guru",
+      "jabatan": "Guru informatika",
+      "tanggal": "2025-11-10"
     }
   ],
   "kelas": [
@@ -247,6 +271,24 @@
       "nama": "Narendra sakti widhitama",
       "kelas": "X",
       "jurusan": "TKJ"
+    },
+    {
+      "id": "5e51",
+      "nama": "Arif ariansyah",
+      "kelas": "XI",
+      "jurusan": "TKJ"
+    },
+    {
+      "id": "5726",
+      "nama": "Hafis zezzip",
+      "kelas": "XII",
+      "jurusan": "TKJ"
+    },
+    {
+      "id": "ea63",
+      "nama": "narendra",
+      "kelas": "X",
+      "jurusan": "AKL"
     }
   ]
 }
